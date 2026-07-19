@@ -360,7 +360,7 @@ const LESSONS = [
     videoLabel:'Animated walkthrough: from a bare nucleus to a filled electron shell model, and how a vacancy in an inner shell becomes a characteristic x-ray',
     videoLen:'8:15',
     notes:[
-      'An atom is mostly empty space: the electron cloud spans roughly 10\u207b\u00b9\u2070 m across, while the nucleus that holds nearly all the mass is about 10,000 times smaller, near 10\u207b\u00b9\u2074 m \u2014 which is exactly why most particles pass through several atoms before anything scatters them.',
+      'An atom is mostly empty space: the electron cloud spans roughly 10\u207b\u00b9\u2070 m across, while the nucleus that holds nearly all the mass is about 100,000 times smaller, near 10\u207b\u00b9\u2075 m \u2014 which is exactly why most particles pass through several atoms before anything scatters them.',
       'Nuclide notation \u2074\u2093X packs in the mass number A (protons + neutrons) and atomic number Z (protons, which equals orbital electrons in a neutral atom). Same Z with different N = isotopes; same N with different Z = isotones; same A with different Z = isobars; same Z and N but a different nuclear energy state = isomers.',
       'An atom\'s mass is always a little less than the sum of its separate protons, neutrons, and electrons. That missing mass \u2014 the mass defect \u2014 was converted to the energy holding the nucleus together, so it doubles as the nuclear binding energy.',
       'Electrons fill shells (K, L, M, N\u2026) out from the nucleus, capped at 2n\u00b2 electrons per shell. Inner shells sit in a much deeper potential well than outer (valence) shells, so knocking out a K-shell electron takes far more energy than exciting a valence electron.',
@@ -386,7 +386,6 @@ const LESSONS = [
       {name:'Atomic Mass Unit to Energy', tex:'1\\ \\text{amu} = 931\\ \\text{MeV}'},
       {name:'Photon Energy from Frequency', tex:'E = h\\nu'},
       {name:'Wave Equation', tex:'c = \\nu\\lambda'},
-      {name:'Photon Energy (eV, \\lambda in m)', tex:'E = \\dfrac{1.24\\times10^{-6}}{\\lambda}'},
     ],
   },
   {
@@ -471,7 +470,6 @@ const LESSONS = [
       {name:'Line-Focus Principle', tex:'a = A\\sin\\theta'},
       {name:'Bremsstrahlung Production Efficiency', tex:'\\text{Efficiency} \\approx 9\\times10^{-10}\\, Z V'},
       {name:'Characteristic Photon Energy', tex:'h\\nu = E_{shell,inner} - E_{shell,outer}'},
-      {name:'Average Beam Energy (rule of thumb)', tex:'\\bar{E} \\approx \\dfrac{1}{3}\\, kVp'},
     ],
   },
   {
@@ -560,7 +558,6 @@ const LESSONS = [
     ],
     formulas:[
       {name:'Exponential Attenuation', tex:'I(x) = I_0 e^{-\\mu x}'},
-      {name:'Half-Value Layer', tex:'HVL = \\dfrac{0.693}{\\mu}'},
       {name:'Photoelectric Dependence', tex:'\\dfrac{\\tau}{\\rho} \\propto \\dfrac{Z^3}{E^3}'},
       {name:'Pair Production Threshold', tex:'E_{threshold} = 1.02\\ \\text{MeV}\\ (2m_0c^2)'},
       {name:'Total Attenuation Coefficient', tex:'\\mu = \\tau + \\sigma_{coh} + \\sigma + \\pi'},
@@ -695,7 +692,6 @@ const LESSONS = [
       {name:'Homogeneity Coefficient', tex:'HC = \\dfrac{HVL_1}{HVL_2}'},
       {name:'Tenth-Value Layer', tex:'TVL = 3.32 \\times HVL'},
       {name:'Average Energy (rule of thumb)', tex:'\\bar{E} \\approx \\dfrac{1}{3} \\times kVp'},
-      {name:'Narrow-Beam Attenuation', tex:'I = I_0 e^{-\\mu x}'},
     ],
   },
   {
@@ -794,7 +790,6 @@ const LESSONS = [
       {name:'Backscatter Factor', tex:'BSF = TAR(d_{max}, r)'},
       {name:'Scatter-Air Ratio', tex:'SAR(d,r) = TAR(d,r) - TAR(d,0)'},
       {name:'Equivalent Square', tex:'ES = \\dfrac{4 \\times Area}{Perimeter} = \\dfrac{2ab}{a+b}'},
-      {name:'Mayneord F-Factor', tex:'F = \\left(\\dfrac{SSD_2+d_{max}}{SSD_1+d_{max}}\\right)^2 \\left(\\dfrac{SSD_1+d}{SSD_2+d}\\right)^2'},
       {name:'Corrected PDD', tex:'PDD_2 = PDD_1 \\times F'},
     ],
   },
@@ -1086,9 +1081,7 @@ const LESSONS = [
       'Using a large-volume ion chamber for small-field SBRT dosimetry — volume averaging and loss of lateral equilibrium demand a small detector.',
       'Assuming SBRT suits any tumour — it is for small, well-circumscribed lesions (≤~5 cm), not large or infiltrative disease.'
     ],
-    formulas:[
-      {name:'Biologically Effective Dose', tex:'BED = n\\,d\\left(1 + \\dfrac{d}{\\alpha/\\beta}\\right)'},
-      {name:'Equivalent Dose in 2-Gy Fractions', tex:'EQD_{2} = D\\,\\dfrac{d + \\alpha/\\beta}{2 + \\alpha/\\beta}'},
+    formulas:[,
       {name:'Conformity Index', tex:'CI = \\dfrac{V_{PIV}}{V_{target}}'},
     ],
   },
@@ -1178,7 +1171,6 @@ const LESSONS = [
     ],
     formulas:[
       {name:'Stereotactic Isocentre Accuracy', tex:'r_{iso} \\leq 1\\ \\text{mm}'},
-      {name:'Geometric Penumbra (long cones shrink it)', tex:'P = \\dfrac{s\\,(SSD + d - SDD)}{SDD}'},
       {name:'Single-Fraction SRS vs Fractionated SRT', tex:'n_{SRS} = 1,\\ \\ n_{SRT} \\geq 2'},
     ],
   },
@@ -1673,7 +1665,6 @@ const LESSONS = [
     ],
     formulas:[
       {name:'Internal Target Volume', tex:'ITV = CTV + IM_{motion}'},
-      {name:'Planning Target Volume', tex:'PTV = CTV + IM + SM'},
       {name:'Gating Duty Cycle', tex:'\\text{duty} = t_{on}/t_{total}'},
     ],
   },
@@ -2765,11 +2756,9 @@ const LESSONS = [
       'Reading a gamma passing rate without its criteria — it depends on the dose-difference / distance-to-agreement values (e.g. 3%/3 mm) and the action threshold.',
       'Assuming prescriptive device QA covers everything — TG-100/FMEA targets process failures (data transfer, human error) that fixed device tests can miss.'
     ],
-    formulas:[
-      {name:'Risk Priority Number (FMEA / TG-100)', tex:'RPN = S \\times O \\times D'},
+    formulas:[,
       {name:'Beam Flatness (central 80%)', tex:'F = \\dfrac{D_{max} - D_{min}}{D_{max} + D_{min}} \\times 100%'},
       {name:'Beam Symmetry (mirror points)', tex:'Sym = \\dfrac{D_{left}}{D_{right}}'},
-      {name:'Gamma Index Criterion', tex:'\\gamma \\leq 1 \\rightarrow \\text{pass}'},
     ],
   },
   {id:'tg51', domain:'qa', matrix:'Matrix VII.1', title:'TG-51 Calibration Protocol', minutes:30, mastery:12, full:false, source:{author:'Faiz M. Khan', book:'The Physics of Radiation Therapy', chapter:'Ch. 8 \u2014 Measurement of Absorbed Dose; Ch. 17 \u2014 Quality Assurance'}},
@@ -2859,8 +2848,7 @@ const LESSONS = [
       'Assuming ultrasound guidance is high fidelity — image quality is limited and transducer pressure can distort the target.',
       'Believing image guidance removes the need for immobilization or motion management — it complements them, it does not replace them.'
     ],
-    formulas:[
-      {name:'van Herk CTV→PTV Margin', tex:'M \\approx 2.5\\,\\Sigma + 0.7\\,\\sigma'},
+    formulas:[,
       {name:'Systematic vs Random Error', tex:'\\Sigma\\ \\text{shifts the mean},\\ \\ \\sigma\\ \\text{blurs the dose}'},
       {name:'IGRT Tightens the Margin', tex:'M_{IGRT} < M_{conv}'},
     ],
@@ -2908,7 +2896,6 @@ const LESSONS = [
       {name:'Equivalent Dose (Sv)', tex:'H = w_R\\, D'},
       {name:'Inverse-Square Exposure', tex:'\\dot{X} \\propto \\dfrac{1}{d^2}'},
       {name:'Tenth-Value vs Half-Value Layer', tex:'\\text{TVL} \\approx 3.32 \\times \\text{HVL}'},
-      {name:'Barrier Transmission (NCRP)', tex:'B = \\dfrac{P\\, d^2}{W\\, U\\, T}'},
     ],
   },
   {
@@ -3000,7 +2987,6 @@ FLASHCARDS.push(
   {id:'i3', lesson:'interactions', front:'What is the pair production threshold energy, and why exactly that value?', back:'1.02 MeV \u2014 exactly 2 \u00d7 0.511 MeV, the combined rest-mass energy of the electron-positron pair that must be created.', box:1, due:new Date()},
   {id:'i4', lesson:'interactions', front:'What is the maximum energy of a Compton photon scattered at 90\u00b0? At 180\u00b0?', back:'About 0.511 MeV at 90\u00b0 and about 0.255 MeV at 180\u00b0 \u2014 both independent of the incident photon energy.', box:0, due:new Date()},
   {id:'i5', lesson:'interactions', front:'Relate half-value layer to the linear attenuation coefficient.', back:'HVL = 0.693/\u03bc \u2014 mathematically identical in form to T\u00bd = 0.693/\u03bb for radioactive decay.', box:1, due:new Date()},
-  {id:'i6', lesson:'interactions', front:'Why is the second HVL of a real x-ray beam larger than the first?', back:'The beam is polyenergetic; the first absorber layer preferentially removes low-energy photons, hardening the beam so the remaining photons are more penetrating.', box:0, due:new Date()},
   {id:'i7', lesson:'interactions', front:'Why is lead a poor neutron shield despite being excellent for photons?', back:'Neutrons lose energy most efficiently in collisions with particles of similar mass \u2014 i.e., hydrogen. Hydrogenous materials (paraffin, polyethylene) are far better neutron absorbers than high-Z lead.', box:0, due:new Date()},
 );
 
@@ -3023,7 +3009,7 @@ const QUIZ = [
   {id:'g-q2', lesson:'structure-matter', q:'A gamma photon has a shorter wavelength than a diagnostic x-ray photon. Compared to the x-ray photon, the gamma photon has:',
     options:['lower energy.','higher energy.','the same energy.','energy that cannot be determined.'], answer:1,
     explain:'Photon energy and wavelength are inversely related (E = hc/\u03bb), so a shorter wavelength always means higher energy.'},
-  {id:'g-q3', lesson:'structure-matter', q:'A characteristic x-ray is produced when:',
+  {id:'g-q3', lesson:'xray-production', q:'A characteristic x-ray is produced when:',
     options:['a valence electron absorbs a low-energy photon.','an inner-shell vacancy is filled by an electron from a higher shell.','a nucleus emits a beta particle.','an electron is accelerated in a linac waveguide.'], answer:1,
     explain:'Characteristic x-rays come specifically from inner-shell (K or L) vacancies being filled, releasing energy equal to the shell energy difference.'},
   {id:'g-q4', lesson:'structure-matter', q:'Two atomic mass units is approximately equal to an energy of:',
@@ -3236,9 +3222,6 @@ const QUIZ = [
   {id:'cr-q5', lesson:'crt-3d', q:'On a cumulative DVH, an ideal target (PTV) curve:',
     options:['falls to zero immediately.','stays near 100% volume until the prescription dose, then drops sharply.','rises with dose.','is a straight diagonal line.'], answer:1,
     explain:'A uniform target curve holds near 100% of the volume up to the prescription dose, then falls steeply; an OAR curve should fall away early.'},
-  {id:'cr-q6', lesson:'crt-3d', q:'A key limitation of the dose-volume histogram is that it:',
-    options:['cannot show organ-at-risk doses.','loses spatial information (where hot/cold spots are).','requires an MRI.','only works for electrons.'], answer:1,
-    explain:'The DVH collapses the 3-D dose into volume-vs-dose curves, so it cannot tell you where within a structure the hot or cold spots lie.'},
   {id:'pr-q1', lesson:'proton', q:'The defining dosimetric feature of a proton beam is:',
     options:['a broad exit dose.','a sharp Bragg peak near the end of range with almost no exit dose.','exponential attenuation like photons.','maximum dose at the surface.'], answer:1,
     explain:'Protons deposit a sharp Bragg peak near the end of their range and then stop \u2014 low entrance dose, high peak at depth, and essentially no exit dose.'},
@@ -3851,9 +3834,6 @@ const QUIZ = [
   {id:'i-q5', lesson:'interactions', q:'The maximum energy of a photon Compton-scattered at 180\u00b0 (backscatter) is approximately:',
     options:['0.255 MeV.','0.511 MeV.','1.02 MeV.','equal to the incident photon energy.'], answer:0,
     explain:'For high-energy incident photons, backscattered photons are capped at about 0.255 MeV, independent of the incident energy \u2014 a key fact for secondary barrier shielding design.'},
-  {id:'i-q6', lesson:'interactions', q:'For a polyenergetic x-ray beam, the second half-value layer compared to the first will be:',
-    options:['smaller.','larger.','identical.','unpredictable.'], answer:1,
-    explain:'The first layer of absorber preferentially strips out low-energy photons, hardening the beam, so the remaining photons are more penetrating and the next HVL is larger.'},
 ];
 
 /* ---- Top-up questions: every full lesson now carries 10. ---- */
@@ -3895,8 +3875,8 @@ QUIZ.push(
     options:['0.511 keV.','11 keV.','69.5 keV.','931 keV.'], answer:2,
     explain:'Tungsten\u2019s K-shell binding energy is about 69.5 keV \u2014 the threshold below which no tungsten K-characteristic x-rays can be produced.'},
   {id:'g-q10', lesson:'structure-matter', q:'Compared with an atom\u2019s overall radius, the nucleus is smaller by a factor of roughly:',
-    options:['10.','100.','1,000.','10,000.'], answer:3,
-    explain:'The atom spans about 10\u207b\u00b9\u2070 m while the nucleus is near 10\u207b\u00b9\u2074 m \u2014 four orders of magnitude, or ~10,000\u00d7 smaller. The atom is mostly empty space.'},
+    options:['100.','1,000.','10,000.','100,000.'], answer:3,
+    explain:'The atom spans about 10\u207b\u00b9\u2070 m while the nucleus is near 10\u207b\u00b9\u2075 m \u2014 five orders of magnitude, or ~100,000\u00d7 smaller. The atom is mostly empty space.'},
 
   // --- Nuclear Transformations (+6) ---
   {id:'h-q5', lesson:'nuclear-transform', q:'The decay constant \u03bb is related to half-life by:',
@@ -4303,7 +4283,6 @@ FLASHCARDS.push(
   {id:'bq16', lesson:'beam-quality', front:'Name the direct and indirect methods of measuring kVp.', back:'Direct (across the circuit): voltage divider, sphere-gap. Indirect (from the beam): fluorescence, attenuation, and penetrameter devices such as the Adrian-Crooks cassette. Indirect methods are preferred for routine checks because nothing connects to the high-tension circuit.', box:0, due:new Date()},
   {id:'bq17', lesson:'beam-quality', front:'How is megavoltage beam energy determined in a clinic?', back:'Indirectly \u2014 measure percentage depth dose in water and compare the curve with published data for known energies. The direct methods, scintillation spectrometry and foil photoactivation (PAR), are research-grade.', box:0, due:new Date()},
   {id:'bq18', lesson:'beam-quality', front:'Effective energy vs mean energy \u2014 what is the difference?', back:'Effective (equivalent) energy is defined by HVL: the energy a monoenergetic beam would need to have the same HVL as your beam. Mean energy is the fluence-weighted average of the actual spectrum. Both sit near \u2153 of the kVp but they are defined differently.', box:0, due:new Date()},
-  {id:'bq19', lesson:'beam-quality', front:'How is an x-ray energy spectrum actually measured, and how is it plotted?', back:'By scintillation spectrometry, which sorts photons by pulse height. It is displayed as photon fluence per unit energy interval plotted against photon energy.', box:0, due:new Date()},
 );
 
 QUIZ.push(
@@ -4438,7 +4417,6 @@ FLASHCARDS.push(
   // --- Quality Assurance (Ch. 17) ---
   {id:'tg51-1', lesson:'tg51', front:'The three pillars a QA program should address?', back:'Structure (staff, equipment, facility), Process, and Outcome \u2014 all three of which can be measured.', box:0, due:new Date()},
   {id:'tg51-2', lesson:'tg51', front:'Which AAPM protocol governs modern megavoltage photon and electron beam calibration?', back:'TG-51 (published 1999), which superseded TG-21. The IAEA equivalent is TRS-398.', box:0, due:new Date()},
-  {id:'imrtqa-3', lesson:'imrt-qa', front:'What is the purpose of patient-specific IMRT/VMAT QA?', back:'To verify the planned fluence can actually be delivered by the machine as calculated \u2014 catching deliverability problems (MLC limits, dose rate, gantry speed) before they reach the patient.', box:0, due:new Date()},
   {id:'imrtqa-4', lesson:'imrt-qa', front:'Name four common radiation measurement devices used in the clinic.', back:'Ionization chambers, diodes, TLDs (thermoluminescent dosimeters), and OSLDs. Survey meters are used for area monitoring.', box:0, due:new Date()},
   {id:'tg51-5', lesson:'tg51', front:'What is RO-ILS?', back:'The Radiation Oncology Incident Learning System \u2014 a national reporting system for safety events, supporting root-cause analysis and process improvement.', box:0, due:new Date()},
 
@@ -4454,7 +4432,6 @@ FLASHCARDS.push(
   // --- Localization (Ch. 12) ---
   {id:'l1', lesson:'igrt-techniques', front:'What distinguishes a systematic setup error from a random setup error?', back:'A systematic error repeats the same way every fraction (e.g. a wrong reference shift, or a contouring error) and shifts the whole dose distribution. A random error varies fraction to fraction (e.g. daily bladder filling) and blurs the distribution.', box:0, due:new Date()},
   {id:'l2', lesson:'igrt-techniques', front:'What is the relationship between Hounsfield units and CT electron density?', back:'HU values are mapped to relative electron density through a CT density calibration table, which the planning system uses to compute attenuation and dose in heterogeneous tissue. HU = 0 for water, \u22121000 for air.', box:0, due:new Date()},
-  {id:'l3', lesson:'igrt-techniques', front:'Rigid vs. deformable image registration \u2014 when do you need deformable?', back:'Rigid registration allows only translation and rotation, so it works when anatomy hasn\u2019t changed shape. Deformable registration is needed when anatomy has changed \u2014 weight loss, tumor shrinkage, differing organ filling \u2014 and is the basis of adaptive replanning and dose accumulation.', box:0, due:new Date()},
   {id:'l4', lesson:'igrt-techniques', front:'Main disadvantage of kV-based fluoroscopic tracking as an IGRT technique?', back:'It generally requires implanted fiducial markers to give a trackable target \u2014 an invasive step. It also adds imaging dose.', box:0, due:new Date()},
 );
 
@@ -4877,8 +4854,6 @@ FLASHCARDS.push(
 FLASHCARDS.push(
   {id:'rp1', lesson:'radiation-protection', front:'State the occupational, public, and embryo/fetus dose limits.', back:'Occupational whole-body 50 mSv/yr (cumulative 10 mSv × age); public 1 mSv/yr; embryo/fetus 5 mSv over the whole declared pregnancy (~0.5 mSv/month).', box:0, due:new Date()},
   {id:'rp2', lesson:'radiation-protection', front:'What are the three pillars of radiation protection, and which is most powerful?', back:'Time, distance, and shielding. Distance is most powerful — inverse square means doubling distance quarters the dose. ALARA ties them together.', box:0, due:new Date()},
-  {id:'rp3', lesson:'radiation-protection', front:'What is the difference between a primary and a secondary barrier?', back:'A primary barrier stops the useful beam (thickest); secondary barriers stop leakage (≤0.1% of the primary at 1 m) and patient/room scatter, so they are thinner.', box:0, due:new Date()},
-  {id:'rp4', lesson:'radiation-protection', front:'Define workload (W), use factor (U), and occupancy factor (T).', back:'W = radiation delivered (Gy/wk at 1 m); U = fraction of workload the beam points at that barrier; T = fraction of time the far side is occupied.', box:0, due:new Date()},
   {id:'rp5', lesson:'radiation-protection', front:'How does a tenth-value layer relate to attenuation and to the HVL?', back:'One TVL cuts the beam to 1/10 (two → 1/100, three → 1/1000). TVL ≈ 3.32 × HVL.', box:0, due:new Date()},
   {id:'rp6', lesson:'radiation-protection', front:'Why do beams above ~10 MV need neutron shielding, and how is it done?', back:'Photonuclear reactions in the head and patient produce neutrons. A maze slows them and a borated-polyethylene door captures them (with thin lead for capture gammas).', box:0, due:new Date()},
   {id:'rp7', lesson:'radiation-protection', front:'What is the radiation weighting factor for photons/electrons versus neutrons?', back:'Photons and electrons = 1; neutrons ~5–20 (energy dependent); alpha ~20. So a small neutron dose carries a large equivalent dose.', box:0, due:new Date()},
@@ -4900,7 +4875,6 @@ FLASHCARDS.push(
   {id:'qa2', lesson:'quality-assurance', front:'Give a typical daily, monthly, and annual output tolerance/check.', back:'Daily: output constancy ~±3% (plus lasers, ODI, interlocks). Monthly: output ~±2% (plus flatness/symmetry, light–radiation coincidence). Annual: full dosimetry incl. TG-51 calibration and isocentricity.', box:0, due:new Date()},
   {id:'qa3', lesson:'quality-assurance', front:'What is the difference between the mechanical and radiation isocentre, and how is each checked?', back:'Mechanical isocentre = where gantry/collimator/couch axes meet (checked with a wiggler, ~2 mm). Radiation isocentre = where the beam converges (checked with a star shot; Winston-Lutz for SRS).', box:0, due:new Date()},
   {id:'qa4', lesson:'quality-assurance', front:'How is patient-specific IMRT/VMAT QA performed?', back:'Deliver the plan to a phantom with a detector array (or film) and compare measured vs calculated dose using gamma analysis (e.g., 3%/3 mm); pass above ~95%.', box:0, due:new Date()},
-  {id:'qa5', lesson:'quality-assurance', front:'What is the FMEA risk priority number, and why does TG-100 use it?', back:'RPN = severity × occurrence × detectability. TG-100 uses it to prioritise failure modes so QA effort targets the highest-risk (often frequent, hard-to-detect process) failures.', box:0, due:new Date()},
   {id:'qa6', lesson:'quality-assurance', front:'How do flatness and symmetry differ?', back:'Flatness = overall dose uniformity across the field (central 80%); symmetry = how closely dose at mirror-image points matches. Both typically within ~±1%.', box:0, due:new Date()},
 );
 
@@ -4940,7 +4914,6 @@ FLASHCARDS.push(
   {id:'cr4', lesson:'crt-3d', front:'What are the OAR and the PRV?', back:'OAR = an organ at risk whose radiosensitivity may limit the plan (cord, lung, parotid). PRV = the OAR plus a margin for its own motion/setup uncertainty, so it is not accidentally overdosed.', box:0, due:new Date()},
   {id:'cr5', lesson:'crt-3d', front:'Why is CT essential for planning, and what do MRI and PET add?', back:'CT gives electron density for heterogeneity-corrected dose calculation (plus geometry). MRI adds soft-tissue detail and PET adds metabolic activity \u2014 both are fused onto the CT for target definition.', box:0, due:new Date()},
   {id:'cr6', lesson:'crt-3d', front:'What are BEV and DRRs used for?', back:'Beam\u2019s-eye view (BEV) lets you shape the field aperture to the PTV as the beam sees it. DRRs, computed from the CT, are reference images for setup verification against portal images.', box:0, due:new Date()},
-  {id:'cr7', lesson:'crt-3d', front:'What does a DVH show, and what is its main limitation?', back:'For each structure it plots the volume receiving at least a given dose (cumulative). Target curves should hold high then drop sharply; OAR curves fall early. Limitation: it loses spatial information (where hot/cold spots are).', box:0, due:new Date()},
 );
 
 FLASHCARDS.push(
@@ -5158,7 +5131,6 @@ FLASHCARDS.push(
   {id:'anat2', lesson:'xsec-anatomy', front:'Give the key vertebral-level landmarks head-to-pelvis.', back:'Vocal cords ~C5\u2013C6; lung apices ~T1\u2013T2; aortic arch ~T4; carina ~T4\u2013T5; diaphragm ~T10\u2013T12; kidneys ~T12\u2013L3 (hila ~L1\u2013L2); aortic bifurcation ~L4; common iliacs split near the SI joints.', box:0, due:new Date()},
   {id:'anat3', lesson:'xsec-anatomy', front:'How are nodal regions defined on cross-section?', back:'By the great vessels: cervical levels track the carotid sheath (with SCM/bony landmarks); mediastinal stations sit around the trachea, aorta, and carina; pelvic nodes follow the iliac vessels; para-aortic nodes hug the aorta/IVC. Contouring nodes \u2248 a margin around vessels.', box:0, due:new Date()},
   {id:'anat4', lesson:'xsec-anatomy', front:'Give the Hounsfield-unit reference values.', back:'Air \u2248 \u22121000, fat \u2248 \u2212100 to \u221250, water = 0, muscle/soft tissue in the tens, cortical bone \u2248 +1000 and above; IV contrast brightens vessels. HU identifies tissue and verifies density overrides.', box:0, due:new Date()},
-  {id:'anat5', lesson:'xsec-anatomy', front:'What does each fusion modality add to the planning CT?', back:'MRI \u2014 soft-tissue and neural detail (brain, prostate, base of tongue, perineural spread). PET \u2014 metabolically active tumour and nodes (staging, GTV). The CT remains the dose-calculation dataset; MRI/PET refine the contours.', box:0, due:new Date()},
   {id:'anat6', lesson:'xsec-anatomy', front:'What OARs are contoured by region?', back:'Head: brainstem, optic structures, cochlea, lenses. Neck: parotids, cord, larynx. Thorax: lungs, heart, oesophagus, cord. Abdomen: kidneys, liver, bowel, cord. Pelvis: bladder, rectum, bowel, femoral heads.', box:0, due:new Date()},
   {id:'anat7', lesson:'xsec-anatomy', front:'Which thoracic structures anchor mediastinal nodal contouring?', back:'The trachea and carina, the aortic arch and great vessels, the pulmonary arteries at the hila, and the oesophagus \u2014 the subcarinal, paratracheal, and aortopulmonary-window stations are all defined by their relation to these structures on the axial slice.', box:0, due:new Date()},
 );
@@ -5474,9 +5446,12 @@ function lessonById(id){ return LESSONS.find(l=>l.id===id); }
 /* ============ GRAY (dose) \u2014 the study currency ============
    You don't collect "points", you collect dose. Every study action deposits Gy.
    Fits the domain, and gives the streak chip something meaningful to show. */
-const GY_RATES = {card:0.2, quiz:0.5, calc:0.75, mock:5.0, pbt:1.0, lesson:2.0};
+/* One correct review marks a card mastered. Change this one number to
+   require more repetitions before a card counts as learned. */
+const MASTERY_BOX = 1;
+const GY_RATES = {card:0.2, quiz:0.5, calc:0.75, mock:5.0, pbt:1.0, lesson:2.0, cardReview:0.05};
 function awardGy(amount, reason){
-  state.gy = Math.round((state.gy + amount) * 10) / 10;
+  state.gy = Math.round((state.gy + amount) * 100) / 100;   // 2dp so small review credits accumulate honestly
   logStudyTime();
   persist();
   if(reason) showToast(`+${amount} Gy \u00b7 ${reason}`, ICON.dose);
@@ -5576,7 +5551,8 @@ function snapshot(){
     examDate:state.examDate, dark:!!state.dark, newsletter:!!state.newsletter, account:state.account||null,
     gy:state.gy, lessonsRead:state.lessonsRead||[], quizCorrect:state.quizCorrect||[],
     sectionsSeen:state.sectionsSeen||{}, studyLog:state.studyLog||{},
-    confidenceLogged:state.confidenceLogged||[], shakyRight:state.shakyRight||[], cards:cards
+    confidenceLogged:state.confidenceLogged||[], shakyRight:state.shakyRight||[], cards:cards,
+    deckState:state.deckState||{}
   };
 }
 function applySnapshot(p){
@@ -5592,6 +5568,7 @@ function applySnapshot(p){
   if(p.studyLog && typeof p.studyLog==='object') state.studyLog=p.studyLog;
   if(Array.isArray(p.confidenceLogged)) state.confidenceLogged=p.confidenceLogged;
   if(Array.isArray(p.shakyRight)) state.shakyRight=p.shakyRight;
+  if(p.deckState && typeof p.deckState==='object') state.deckState=p.deckState;
   if(p.cards && state.cards){
     state.cards.forEach(function(c){ var sv=p.cards[c.id]; if(sv){ c.box=sv.b||0; c.due=sv.d?new Date(sv.d):c.due; c.starred=!!sv.s; } });
   }
@@ -5612,7 +5589,8 @@ function mergeSnapshots(a, b){
     quizCorrect: uni(a.quizCorrect, b.quizCorrect),
     confidenceLogged: uni(a.confidenceLogged, b.confidenceLogged),
     shakyRight: uni(a.shakyRight, b.shakyRight),
-    sectionsSeen:{}, studyLog:{}, cards:{}
+    sectionsSeen:{}, studyLog:{}, cards:{},
+    deckState: (newer.deckState && Object.keys(newer.deckState).length) ? newer.deckState : (a.deckState || b.deckState || {})
   };
   var k;
   var A=a.sectionsSeen||{}, B=b.sectionsSeen||{};
@@ -5648,7 +5626,7 @@ function loadPrefs(){
    code. Row Level Security is what protects each user's data.
    NEVER put the service_role key in this file.
    ============================================================ */
-var DB_BUILD = 'reset-fix-3';
+var DB_BUILD = '2026-07-18-flashcards';
 var CLOUD_CONFIG = (window.DOSEBENDERS_CONFIG) || {
   url:     '',   // set these in config.js \u2014 not in this file
   anonKey: ''
@@ -6025,7 +6003,7 @@ function domainCardCount(domainId){
 function lessonParts(lessonId){
   const cards = state.cards.filter(c=>c.lesson===lessonId);
   const qs = QUIZ.filter(q=>q.lesson===lessonId);
-  const cardsMastered = cards.filter(c=>c.box>=3).length;
+  const cardsMastered = cards.filter(c=>c.box>=MASTERY_BOX).length;
   const qsCorrect = qs.filter(q=>(state.quizCorrect||[]).includes(q.id)).length;
   return {
     lessonDone: !!(state.lessonsRead||[]).includes(lessonId),
@@ -6948,7 +6926,7 @@ function renderDashboard(){
 
 function domainCard(d, opts){
   opts = opts || {};
-  const mastery = domainMastery(d.id);
+  const mastery = (opts.mastery !== undefined) ? opts.mastery : domainMastery(d.id);
   const ls = LESSONS.filter(l=>l.domain===d.id);
   const qs = domainQuestionCount(d.id);
   const cards = domainCardCount(d.id);
@@ -6959,7 +6937,7 @@ function domainCard(d, opts){
     style="padding:18px; text-align:left; background:var(--surface-raised); border:1px solid var(--border); cursor:${disabled?'not-allowed':'pointer'}; opacity:${disabled?0.5:1}; display:flex; flex-direction:column;">
 
     <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
-      <div style="font-weight:700; font-size:14px; line-height:1.3; color:var(--ink); min-height:36px;">${d.name}</div>
+      <div style="font-weight:700; font-size:14px; line-height:1.3; color:var(--ink); min-height:36px;">${d.name}${opts.progress?`<span style="display:block; font-size:11.5px; font-weight:600; color:var(--ink-faint); margin-top:3px;">${opts.progress}</span>`:''}</div>
       ${disabled?'':`<span style="width:15px;height:15px;display:inline-flex;color:var(--ink-faint);flex-shrink:0;margin-top:2px;">${ICON.arrowright}</span>`}
     </div>
 
@@ -7208,10 +7186,15 @@ const GROUP_DEFS = {
 };
 function libGroupOpen(domainId, gi){
   if(!state.libGroupOpen) state.libGroupOpen = {};
-  const g = (GROUP_DEFS[domainId]||[])[gi] || {};
-  const def = g.open===false ? false : true;
+  // Everything starts closed so the whole domain fits on one screen.
   const v = state.libGroupOpen[domainId+'::'+gi];
-  return v===undefined ? def : v;
+  return v===undefined ? false : v;
+}
+function libGroupsAll(domainId, open){
+  if(!state.libGroupOpen) state.libGroupOpen = {};
+  (GROUP_DEFS[domainId]||[]).forEach(function(g,gi){ state.libGroupOpen[domainId+'::'+gi] = open; });
+  const y = window.scrollY; render();
+  requestAnimationFrame(()=>window.scrollTo({top:y, behavior:'instant'}));
 }
 function toggleLibGroup(domainId, gi){
   if(!state.libGroupOpen) state.libGroupOpen = {};
@@ -7225,7 +7208,12 @@ function renderDomainBody(d){
   const gridHtml = (arr)=>`<div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:14px;">${arr.map(l=>lessonCard(l)).join('')}</div>`;
   if(!defs){ return gridHtml(full); }
   const used = {};
-  let out = '';
+  const anyOpen = defs.some((g,gi)=>libGroupOpen(d.id, gi));
+  let out = `<div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding-bottom:2px;">
+      <span style="font-size:11.5px; color:var(--ink-faint); margin-right:2px;">${defs.length} sections</span>
+      <button class="btn btn-ghost btn-sm" style="padding:5px 11px; font-size:12px;" onclick="event.stopPropagation(); libGroupsAll('${d.id}', true)">Expand all</button>
+      <button class="btn btn-ghost btn-sm" style="padding:5px 11px; font-size:12px;" onclick="event.stopPropagation(); libGroupsAll('${d.id}', false)" ${anyOpen?'':'disabled'}>Collapse all</button>
+    </div>`;
   defs.forEach((g,gi)=>{
     const items = g.ids.map(id=>full.find(l=>l.id===id)).filter(Boolean);
     items.forEach(l=>used[l.id]=1);
@@ -8648,7 +8636,7 @@ const NOTE_FIGURES = {
        <line x1="104" y1="90" x2="104" y2="36" stroke="var(--ink-faint)" stroke-width="1"/>
        <text x="110" y="58" font-size="9.5" fill="var(--ink-faint)" font-family="Inter">\u224810\u207b\u00b9\u2070 m</text>
        <circle cx="104" cy="90" r="3.2" fill="var(--red)"/>
-       <text x="104" y="110" font-size="9.5" fill="var(--red)" font-family="Inter" text-anchor="middle" font-weight="700">nucleus \u224810\u207b\u00b9\u2074 m</text>
+       <text x="104" y="110" font-size="9.5" fill="var(--red)" font-family="Inter" text-anchor="middle" font-weight="700">nucleus \u224810\u207b\u00b9\u2075 m</text>
        <text x="104" y="166" font-size="9.5" fill="var(--ink-soft)" font-family="Inter" text-anchor="middle">the atom</text>
        <text x="212" y="56" font-size="11.5" fill="var(--ink)" font-family="Inter" font-weight="700">Nucleus: \u2248100% of the mass</text>
        <text x="212" y="78" font-size="11.5" fill="var(--ink-soft)" font-family="Inter">Electron cloud: \u2248100% of volume</text>
@@ -9726,7 +9714,7 @@ const MULTI_ANIMS = {
   ],
 
   'structure-matter': [
-    {id:'atom', label:'The Basic Atom & Nucleus', caption:'Almost all of an atom\u2019s mass sits in a nucleus of protons and neutrons about 10,000\u00d7 smaller than the electron cloud around it \u2014 so the atom is mostly empty space, and most particles pass right through several atoms before anything scatters them.',
+    {id:'atom', label:'The Basic Atom & Nucleus', caption:'Almost all of an atom\u2019s mass sits in a nucleus of protons and neutrons about 100,000\u00d7 smaller than the electron cloud around it \u2014 so the atom is mostly empty space, and most particles pass right through several atoms before anything scatters them.',
      svg:`<svg viewBox="0 0 480 240" style="width:100%; max-width:680px;">
         <text x="240" y="20" font-size="12" fill="var(--ink-soft)" font-family="Inter" font-weight="700" text-anchor="middle">A tiny dense nucleus, surrounded by orbiting electrons</text>
         <circle cx="150" cy="128" r="78" fill="none" stroke="var(--border)" stroke-width="1.3" stroke-dasharray="3,3"/>
@@ -9744,7 +9732,7 @@ const MULTI_ANIMS = {
         <text x="300" y="156" font-size="10" fill="var(--ink-faint)" font-family="Inter">Nearly all the mass sits</text>
         <text x="300" y="170" font-size="10" fill="var(--ink-faint)" font-family="Inter">in that tiny nucleus \u2014 the</text>
         <text x="300" y="184" font-size="10" fill="var(--ink-faint)" font-family="Inter">rest is empty space.</text>
-        <text x="150" y="224" font-size="9.5" fill="var(--ink-faint)" font-family="Inter" text-anchor="middle">nucleus \u2248 10,000\u00d7 smaller than the electron cloud</text>
+        <text x="150" y="224" font-size="9.5" fill="var(--ink-faint)" font-family="Inter" text-anchor="middle">nucleus \u2248 100,000\u00d7 smaller than the electron cloud</text>
       </svg>`},
 
     {id:'shells', label:'Electron Shells (K, L, M)', caption:'Electrons occupy shells (K, L, M\u2026) filling outward from the nucleus, up to 2n\u00b2 each. Inner shells sit in a much deeper energy well, so they are bound far more tightly than the outer valence electrons \u2014 the colours here match the shell energy diagram in the notes.',
@@ -9768,28 +9756,6 @@ const MULTI_ANIMS = {
         <rect x="262" y="110" width="12" height="12" rx="2" fill="var(--amber)"/><text x="282" y="120" font-size="11.5" fill="var(--ink-soft)" font-family="Inter"><tspan font-weight="700">L</tspan> shell</text>
         <rect x="262" y="140" width="12" height="12" rx="2" fill="var(--green)"/><text x="282" y="150" font-size="11.5" fill="var(--ink-soft)" font-family="Inter"><tspan font-weight="700">M</tspan> \u2014 valence, loosely bound</text>
         <text x="240" y="242" font-size="9.5" fill="var(--ink-faint)" font-family="Inter" text-anchor="middle">Each shell holds up to 2n\u00b2 electrons; binding energy grows toward the nucleus</text>
-      </svg>`},
-
-    {id:'charxray', label:'Characteristic X-ray Production', caption:'An incident electron ejects an inner (K-shell) electron, leaving a vacancy. An electron from a higher shell drops in to fill it, and the energy difference between the shells is released as a characteristic x-ray \u2014 its energy fixed by the element\u2019s shell structure, not by the incident beam.',
-     svg:`<svg viewBox="0 0 480 258" style="width:100%; max-width:680px;">
-        <text x="240" y="28" font-size="12.5" fill="var(--ink-soft)" font-family="Inter" font-weight="800" text-anchor="middle"><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.2;0.24;1" dur="5s" repeatCount="indefinite"/>1 \u00b7 An incident electron strikes the atom</text>
-        <text x="240" y="28" font-size="12.5" fill="var(--red)" font-family="Inter" font-weight="800" text-anchor="middle"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.28;0.46;0.5;1" dur="5s" repeatCount="indefinite"/>2 \u00b7 A K-shell electron is knocked out</text>
-        <text x="240" y="28" font-size="12.5" fill="var(--amber)" font-family="Inter" font-weight="800" text-anchor="middle"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.52;0.56;0.72;0.76;1" dur="5s" repeatCount="indefinite"/>3 \u00b7 An electron drops in from the L shell</text>
-        <text x="240" y="28" font-size="12.5" fill="var(--orange-dark)" font-family="Inter" font-weight="800" text-anchor="middle"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.78;0.82;1" dur="5s" repeatCount="indefinite"/>4 \u00b7 A characteristic x-ray is emitted</text>
-        <circle cx="160" cy="146" r="88" fill="none" stroke="var(--green)" stroke-width="1.5"/>
-        <circle cx="160" cy="146" r="60" fill="none" stroke="var(--amber)" stroke-width="1.7"/>
-        <circle cx="160" cy="146" r="32" fill="none" stroke="var(--red)" stroke-width="2"/>
-        <circle cx="160" cy="146" r="11" fill="var(--ink)"/><text x="160" y="150" font-size="10" fill="#fff" font-family="Inter" text-anchor="middle" font-weight="800">+</text>
-        <circle cx="160" cy="178" r="4.6" fill="var(--red)"/>
-        ${[1,2,3,4,5].map(k=>{const a=(k/6)*6.2832+0.5;return `<circle cx="${(160+60*Math.cos(a)).toFixed(1)}" cy="${(146+60*Math.sin(a)).toFixed(1)}" r="4.4" fill="var(--amber)" opacity="0.85"/>`;}).join('')}
-        ${[1,2,3].map(k=>{const a=(k/4)*6.2832+0.9;return `<circle cx="${(160+88*Math.cos(a)).toFixed(1)}" cy="${(146+88*Math.sin(a)).toFixed(1)}" r="4.4" fill="var(--green)" opacity="0.7"/>`;}).join('')}
-        <circle r="5" fill="var(--orange)"><animateMotion dur="5s" repeatCount="indefinite" path="M14,64 L150,124" keyPoints="0;1;1" keyTimes="0;0.2;1" calcMode="linear"/><animate attributeName="opacity" values="1;1;0;0" keyTimes="0;0.2;0.24;1" dur="5s" repeatCount="indefinite"/></circle>
-        <circle r="4.6" fill="var(--red)"><animateMotion dur="5s" repeatCount="indefinite" path="M160,114 L286,44" keyPoints="0;0;1;1" keyTimes="0;0.24;0.46;1" calcMode="linear"/><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.24;0.27;0.46;0.5;1" dur="5s" repeatCount="indefinite"/></circle>
-        <circle cx="160" cy="114" r="6.5" fill="none" stroke="var(--red)" stroke-width="1.6" stroke-dasharray="3,2"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.46;0.49;0.74;0.78;1" dur="5s" repeatCount="indefinite"/></circle>
-        <circle r="4.6" fill="var(--amber)"><animateMotion dur="5s" repeatCount="indefinite" path="M160,86 L160,114" keyPoints="0;0;1;1" keyTimes="0;0.56;0.74;1" calcMode="linear"/><animate attributeName="opacity" values="0;0;1;1;1;0" keyTimes="0;0.56;0.58;0.74;0.95;1" dur="5s" repeatCount="indefinite"/></circle>
-        <path d="M168,114 Q252,80 336,86" fill="none" stroke="var(--orange-dark)" stroke-width="2" stroke-dasharray="4,3"><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.78;0.84;0.96;1" dur="5s" repeatCount="indefinite"/></path>
-        <circle r="4" fill="var(--orange-dark)"><animateMotion dur="5s" repeatCount="indefinite" path="M168,114 Q252,80 336,86" keyPoints="0;0;1;1" keyTimes="0;0.8;0.97;1" calcMode="linear"/><animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;0.8;0.84;0.97;1" dur="5s" repeatCount="indefinite"/></circle>
-        <text x="240" y="250" font-size="9.5" fill="var(--ink-faint)" font-family="Inter" text-anchor="middle">Its energy = (K binding) \u2212 (L binding) \u2014 a fixed line for each element</text>
       </svg>`},
 
     {id:'emspectrum', label:'The EM Spectrum (E = h\u03bd)', caption:'All electromagnetic radiation travels at c, but photon energy rises with frequency (E = h\u03bd) and falls with wavelength (c = \u03bd\u03bb). Toward the right \u2014 x-rays and gamma rays \u2014 photons carry enough energy to ionize atoms, which is the basis of radiotherapy.',
@@ -13770,9 +13736,13 @@ function nextInlineQuiz(total){
 function rateConfidence(level, context, refId){
   if(context==='card'){
     const c = state.cards.find(x=>x.id===refId);
-    const wasMastered = c.box>=3;
+    const wasMastered = c.box>=MASTERY_BOX;
     applySchedule(c, level);
-    if(!wasMastered && c.box>=3) awardGy(GY_RATES.card, 'Card mastered');
+    if(!wasMastered && c.box>=MASTERY_BOX){
+      awardGy(GY_RATES.card, 'Card mastered');           // full credit on mastery
+    } else {
+      awardGy(GY_RATES.cardReview, 'Card reviewed');     // effort credit every time
+    }
     showToast(scheduleMsg(level), ICON.clock);
     setTimeout(()=>{ nextCard(); },550);
   } else if(context==='lesson'){
@@ -13815,12 +13785,20 @@ function dueIn(domainId){ const now=new Date(); return cardsIn(domainId).filter(
 const BOOST_META = {id:'__boost', name:'Boost \u2014 High-yield recall', weight:null, color:'orange'};
 function domainMeta(id){ return id==='__boost' ? BOOST_META : DOMAINS.find(x=>x.id===id); }
 
+function cardsDueCount(lessonFilter){
+  const now = new Date();
+  return state.cards.filter(function(c){
+    if(lessonFilter && c.lesson!==lessonFilter) return false;
+    return new Date(c.due) <= now;
+  }).length;
+}
 function boostHero(kind){
   // kind: 'cards' | 'quiz'
   const n = kind==='cards' ? BOOST_CARDS.length : BOOST_QUIZ.length;
   const mastered = kind==='cards'
-    ? state.cards.filter(c=>c.lesson==='__boost' && c.box>=3).length
+    ? state.cards.filter(c=>c.lesson==='__boost' && c.box>=MASTERY_BOX).length
     : BOOST_QUIZ.filter(q=>(state.quizCorrect||[]).includes(q.id)).length;
+
   const pct = Math.round((mastered/n)*100);
   const go = kind==='cards' ? "pickDeck('__boost')" : "pickQuizDomain('__boost')";
   return `<button class="card hoverable" onclick="${go}" style="width:100%; padding:22px 24px; text-align:left; cursor:pointer; margin-bottom:22px; border:1.5px solid var(--orange); background:linear-gradient(135deg, var(--orange-soft-2), var(--surface-raised));">
@@ -13840,6 +13818,7 @@ function boostHero(kind){
       <div style="text-align:right; flex-shrink:0;">
         <div style="font-family:var(--font-display); font-weight:800; font-size:20px; color:${masteryTextColor(pct)};">${mastered}/${n}</div>
         <div style="font-size:10.5px; color:var(--ink-faint);">${kind==='cards'?'mastered':'correct'}</div>
+
       </div>
     </div>
     <div class="progress-track" style="margin-top:14px; height:6px;"><div class="progress-fill" style="width:${pct}%; background:${masteryColor(pct)}"></div></div>
@@ -13862,7 +13841,7 @@ function domainPicker(opts){
       <b style="color:var(--ink);">Your mastery</b> = how well you know it right now.
     </p>
     <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(240px,1fr)); gap:14px;">
-      ${DOMAINS.map(d=>domainCard(d, {count: opts.countFn(d.id), onClick: `${opts.onPick}('${d.id}')`})).join('')}
+      ${DOMAINS.map(d=>domainCard(d, {count: opts.countFn(d.id), onClick: `${opts.onPick}('${d.id}')`, progress: opts.progressFn? opts.progressFn(d.id):'', mastery: opts.masteryFn? opts.masteryFn(d.id):undefined})).join('')}
     </div>
   </div>`;
 }
@@ -13873,10 +13852,26 @@ function pickDeck(domainId){
   state.scrollMem.review = window.pageYOffset || (document.documentElement ? document.documentElement.scrollTop : 0) || 0;
   state.deckDomain = domainId;
   state.deckMode = 'study';
-  state.cardIndex = 0;
+  state.deckDone = false;
   state.cardFlipped = false;
-  state.deckOrder = shuffleArr(cardsIn(domainId).map(function(c){return c.id;}));
+  // Come back to exactly the card you left on, in the same order.
+  const saved = (state.deckState||{})[domainId];
+  const live  = cardsIn(domainId).map(function(c){return c.id;});
+  if(saved && saved.order && saved.order.length === live.length){
+    state.deckOrder = saved.order.filter(function(id){ return live.indexOf(id)>-1; });
+    state.cardIndex = Math.min(saved.index||0, Math.max(0,state.deckOrder.length-1));
+  } else {
+    state.deckOrder = shuffleArr(live);
+    state.cardIndex = 0;
+  }
   render();
+}
+/* Remember the position so leaving and returning lands on the same card. */
+function rememberDeckPos(){
+  if(!state.deckDomain) return;
+  if(!state.deckState) state.deckState = {};
+  state.deckState[state.deckDomain] = { order: state.deckOrder||[], index: state.cardIndex||0 };
+  persist();
 }
 function backToDecks(){
   state.deckDomain = null;
@@ -13904,9 +13899,51 @@ function toggleStar(id){
 function cardStep(n){
   const cs = deckCards();
   if(!cs.length) return;
+  // Moving FORWARD counts the card as seen and masters it.
+  if(n > 0){
+    const cur = cs[state.cardIndex];
+    if(cur && cur.box < MASTERY_BOX){
+      applySchedule(cur, 'know');
+      awardGy(GY_RATES.card, 'Card mastered');
+    }
+  }
+  const last = state.cardIndex >= cs.length-1;
+  if(n > 0 && last){ state.deckDone = true; state.cardFlipped = false; rememberDeckPos(); return render(); }
   state.cardIndex = (state.cardIndex + n + cs.length) % cs.length;
   state.cardFlipped = false;
+  rememberDeckPos();
   render();
+}
+function redoDeckFromScratch(){
+  state.deckDone = false;
+  resetDeckMastery(state.deckDomain);
+}
+/* Clear mastery for the deck currently being reviewed, so a section can
+   be run again without touching any other deck. */
+function deckMasteredCount(domainId){
+  return deckScopeCards(domainId).filter(function(c){ return c.box>=MASTERY_BOX; }).length;
+}
+function deckScopeCards(domainId){
+  if(!domainId) return state.cards.slice();          // the combined "all cards" deck
+  return cardsIn(domainId);
+}
+function resetDeckMastery(domainId){
+  const cs = deckScopeCards(domainId);
+  if(!cs.length) return;
+  const meta = domainId ? domainMeta(domainId) : null;
+  const label = meta ? meta.name : 'all flashcards';
+  askConfirm({
+    title:'Reset this deck?',
+    body:'This clears mastery for the <b>'+cs.length+'</b> cards in <b>'+label+'</b> so you can review them again. Other decks are not affected, and your Gy is kept.',
+    ok:'Reset deck', cancel:'Cancel', danger:true,
+    onConfirm:function(){
+      const now = new Date();
+      cs.forEach(function(c){ c.box = 0; c.due = now; });
+      state.cardIndex = 0; state.cardFlipped = false;
+      persist(); render();
+      showToast(cs.length+' cards back in play.', ICON.clock);
+    }
+  });
 }
 function setDeckMode(m){ state.deckMode=m; state.cardIndex=0; state.cardFlipped=false; render(); }
 
@@ -13917,6 +13954,8 @@ function renderReview(){
       countFn: id => cardsIn(id).length,
       countLabel: 'card',
       onPick: 'pickDeck',
+      progressFn: id => { const cs=cardsIn(id); return cs.length ? deckMasteredCount(id)+' / '+cs.length+' done' : ''; },
+      masteryFn: id => { const n=cardsIn(id).length; return n ? Math.round(deckMasteredCount(id)/n*100) : 0; },
       boostKind: 'cards',
     });
   }
@@ -13924,6 +13963,34 @@ function renderReview(){
   const cs = deckCards();
   const total = cardsIn(state.deckDomain).length;
   const due = dueIn(state.deckDomain);
+
+  if(state.deckDone){
+    const doneN = deckMasteredCount(state.deckDomain);
+    const totalN = deckScopeCards(state.deckDomain).length;
+    const pct = totalN ? Math.round(doneN/totalN*100) : 0;
+    return `<div class="fade-in" style="max-width:520px; margin:0 auto;">
+      <div class="card" style="padding:38px 34px; text-align:center;">
+        <div style="width:56px;height:56px;border-radius:16px;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">
+          <span style="width:28px;height:28px;display:inline-flex;">${ICON.check}</span>
+        </div>
+        <h1 style="font-size:22px; margin-bottom:8px;">Deck complete</h1>
+        <p style="font-size:14px; color:var(--ink-soft); line-height:1.65;">
+          You worked through every card in <b style="color:var(--ink);">${d.name}</b>. Nice going.
+        </p>
+        <div style="display:flex; gap:14px; justify-content:center; margin:22px 0 4px;">
+          <div><div style="font-family:var(--font-display); font-weight:800; font-size:26px; color:${masteryTextColor(pct)};">${doneN}/${totalN}</div>
+               <div style="font-size:11.5px; color:var(--ink-faint);">cards mastered</div></div>
+          <div><div style="font-family:var(--font-display); font-weight:800; font-size:26px; color:var(--orange-dark);">${state.gy.toFixed(1)}</div>
+               <div style="font-size:11.5px; color:var(--ink-faint);">Gy collected</div></div>
+        </div>
+        <div class="progress-track" style="margin:16px 0 22px;"><div class="progress-fill" style="width:${pct}%; background:${masteryColor(pct)}"></div></div>
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+          <button class="btn btn-ghost btn-sm" onclick="backToDecks()">${ICON.arrowleft} Back to all decks</button>
+          <button class="btn btn-primary btn-sm" onclick="redoDeckFromScratch()">${ICON.clock} Reset mastery &amp; redo</button>
+        </div>
+      </div>
+    </div>`;
+  }
 
   const header = `
     <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:16px;">
@@ -13935,7 +14002,7 @@ function renderReview(){
       </div>
     </div>
     <h2 style="font-size:18px;">${d.name}</h2>
-    <p style="font-size:13px; color:var(--ink-soft); margin-top:4px; margin-bottom:18px;">${total} card${total===1?'':'s'} \u00b7 ${due} due now${d.weight!==null?` \u00b7 ${d.weight}% of the exam`:' \u00b7 pure recall, drawn from Memorize'}</p>
+    <p style="font-size:13px; color:var(--ink-soft); margin-top:4px; margin-bottom:18px;">${total} card${total===1?'':'s'}${d.weight!==null?` \u00b7 ${d.weight}% of the exam`:' \u00b7 pure recall, drawn from Memorize'}</p>
   `;
 
   if(state.deckMode==='browse'){
@@ -13976,6 +14043,7 @@ function renderReview(){
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <span class="pill">${i+1} / ${cs.length}</span>
       <div style="display:flex; gap:8px; align-items:center;">
+        <button onclick="resetDeckMastery(${state.deckDomain?`'${state.deckDomain}'`:'null'})" class="btn btn-ghost btn-sm" style="color:var(--ink-faint);" title="Clear mastery for this deck only">${ICON.clock} Reset deck</button>
         <button onclick="toggleStar('${c.id}')" class="btn btn-ghost btn-sm" style="color:${c.starred?'var(--amber)':'var(--ink-faint)'};">${ICON.gem} ${c.starred?'Starred':'Star'}</button>
         <span class="pill" style="background:var(--orange-soft); color:var(--orange-dark); border-color:transparent;">Box ${c.box+1}</span>
       </div>
@@ -16057,7 +16125,7 @@ function renderProgress(){
       ${(()=>{
         const lessonsDone = (state.lessonsRead||[]).length;
         const lessonPct = Math.round((lessonsDone/LESSONS.length)*100);
-        const cardsDone = state.cards.filter(c=>c.box>=3).length;
+        const cardsDone = state.cards.filter(c=>c.box>=MASTERY_BOX).length;
         const cardPct = Math.round((cardsDone/state.cards.length)*100);
         const qDone = (state.quizCorrect||[]).length;
         const qPct = Math.round((qDone/QUIZ.length)*100);
@@ -16069,7 +16137,7 @@ function renderProgress(){
         ];
         return tiles.map(t=>`<div class="card" style="padding:18px;">
           <div style="font-size:22px; font-weight:800; font-family:var(--font-display); color:${masteryTextColor(t.pct)};">${t.v}</div>
-          <div style="font-size:12px; color:var(--ink-soft); margin-top:4px;">${t.l}</div>
+          <div style="font-size:12px; color:var(--ink-soft); margin-top:4px;">${t.l}${t.sub?`<span style="color:var(--amber); font-weight:700;"> \u00b7 ${t.sub}</span>`:''}</div>
           <div class="progress-track" style="margin-top:10px; height:5px;"><div class="progress-fill" style="width:${t.pct}%; background:${masteryColor(t.pct)}"></div></div>
         </div>`).join('');
       })()}
