@@ -4,7 +4,7 @@
 
    Bump CACHE_VERSION whenever you deploy and want clients to refresh. */
 
-const CACHE_VERSION = 'db-v3';
+const CACHE_VERSION = 'db-v9';
 const SHELL = [
   '/',
   '/index.html',
