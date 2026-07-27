@@ -387,6 +387,14 @@ const DOMAINS = [
   {id:'qa', name:'QA & Standard of Care', color:'amber', weight:9}
 ];
 
+/* CITATION CONVENTION — applies to every lesson's `source` object.
+   Cite author, book title, and chapter ONLY. Do NOT include the edition:
+   no "(5th ed.)", "3rd Edition", "2nd ed." or similar, in any of the
+   author / book / chapter fields. Editions change; the citation should
+   still point the reader to the right chapter of whatever copy they own.
+     GOOD: book:'Khan\u2019s The Physics of Radiation Therapy'
+     BAD : book:'Khan\u2019s The Physics of Radiation Therapy (5th ed.)'
+   The citation renders once per lesson, under the Objectives section. */
 const LESSONS = [
   {
     id:'pdd-tpr', domain:'dosecalc', matrix:'Matrix IV.1', title:'Percent Depth Dose & Tissue-Phantom Ratio',
@@ -2499,6 +2507,88 @@ const LESSONS = [
     ],
   },
   {
+    id:'computer-hardware', domain:'planning', matrix:'Matrix III.9', title:'Computer Hardware Basics: Processor, Memory, Storage & Graphics',
+    minutes:12, mastery:0, full:true,
+    source:{author:'Khan & Gibbons; MDCB test specification', book:'Khan\u2019s The Physics of Radiation Therapy & MDCB CMD Exam Content Outline', chapter:'Computer Systems Management \u2014 Hardware Fundamentals'},
+    objectives:[
+      'Name the main hardware components of a computer and state what each does.',
+      'Distinguish memory from storage, and volatile from non-volatile.',
+      'Compare hard disk drives with solid-state drives, and explain what RAID does.',
+      'Explain what a GPU is and why it matters for dose calculation and image processing.'
+    ],
+    videoLabel:'A workstation opened up \u2014 processor, memory, drives and graphics card highlighted in turn, each labelled with the planning job it affects.',
+    videoLen:'4:00',
+    notes:[
+      'Strip a planning workstation down and there are four things that matter: something to calculate, something to hold what is being worked on, something to keep it permanently, and a board to connect them. The MOTHERBOARD is that board \u2014 the main circuit board every other component plugs into, carrying the power and the data pathways between them. The CENTRAL PROCESSING UNIT (CPU) is the part that actually calculates. Its speed is quoted as a CLOCK SPEED in gigahertz (billions of cycles per second), but a modern CPU also has multiple CORES, meaning it can work on several tasks genuinely at once, and a small pool of extremely fast on-chip memory called CACHE that keeps the data it is about to need close at hand. This is not trivia: how long a Monte Carlo dose calculation takes is a hardware question as much as an algorithm one.',
+      'The distinction people get wrong most often is MEMORY versus STORAGE. RANDOM-ACCESS MEMORY (RAM) is the working space \u2014 it holds the operating system, the program you are running, and the data in current use, so the processor can reach it almost instantly. It is fast but VOLATILE: cut the power and its contents are gone. READ-ONLY MEMORY (ROM) is the opposite in both respects \u2014 non-volatile, retaining its contents without power, and not writable in normal use, which is why it holds the start-up firmware that brings the machine to life. STORAGE (the drives) is permanent and non-volatile: it survives a power cut and holds everything long-term. Put concretely, the dose grid being optimised right now lives in RAM; the plan you approved last month lives on storage.',
+      'Storage itself comes in two forms. A HARD DISK DRIVE (HDD) writes magnetically onto spinning platters read by a moving head. It is cheap per terabyte and well suited to bulk archive, but it is mechanical, so it is slower and it eventually wears out. A SOLID-STATE DRIVE (SSD) uses flash memory with no moving parts \u2014 far faster, more robust, more expensive per terabyte \u2014 which is why the operating system, the planning software, and the dataset you are actively working on typically sit on SSD. Departments rarely rely on a single drive: RAID (redundant array of independent disks) ties several drives together so they behave as one, either MIRRORING data across drives so a failure loses nothing, or STRIPING it across drives for speed, or both. One caution worth carrying: RAID is not a backup. It protects against a drive dying; it does nothing about accidental deletion, corruption, or ransomware, all of which it faithfully copies to every disk.',
+      'The GRAPHICS PROCESSING UNIT (GPU), or graphics card, began life simply as the component that draws the picture on the screen. What made it important elsewhere is its architecture: where a CPU has a handful of powerful cores, a GPU has hundreds or thousands of simple ones, which makes it extraordinarily good at problems that break into many identical small calculations running side by side. That description fits a great deal of what radiation oncology does \u2014 tracking millions of independent particle histories in a Monte Carlo dose calculation, warping a deformable image registration, reconstructing a cone-beam CT, running an auto-segmentation or AI model. Be clear about what it buys you: a GPU does not make an algorithm more ACCURATE, it makes it FASTER. That speed is what turns Monte Carlo and same-day adaptive workflows from theoretically possible into clinically practical.',
+      'Around those core parts sit the INPUT and OUTPUT devices \u2014 keyboard, mouse and monitor \u2014 plus the network hardware connecting the workstation to the scanner, the archive and the treatment machines. Put it together and specifying a planning workstation is a practical exercise: enough RAM to hold the dataset comfortably, fast local storage, a CPU with enough cores, and a GPU if the planning system uses one.',
+    ],
+    clinical:'A department buys a planning system with a Monte Carlo algorithm and finds a lung SBRT calculation takes close to twenty minutes on the existing workstations, which is unworkable for a same-day adaptive service. Investigating, the physicist finds the machines have capable CPUs but no compute-capable graphics card, so the algorithm is falling back to CPU-only calculation. Adding a supported GPU brings the same calculation down to roughly a minute. The dose is not more accurate than before \u2014 it is the identical algorithm returning the identical result \u2014 but the workflow is now clinically viable. In the same refresh the department moves active patient data onto SSDs while keeping the long-term archive on a mirrored RAID array of high-capacity HDDs, and keeps a separate off-site backup, on the principle that RAID protects against a failed disk but not against a deleted or corrupted file.',
+    mnemonic:{title:'RAM forgets, storage remembers \u2014 CPU is few and strong, GPU is many and simple', body:'<b>Motherboard</b> connects everything. <b>CPU</b> = calculates; clock speed (GHz), cores, cache. <b>RAM</b> = working space, fast, <b>volatile</b> (lost at power-off). <b>ROM</b> = non-volatile, not writable in normal use, holds start-up firmware. <b>Storage</b> = permanent: <b>HDD</b> cheap/mechanical/slower, <b>SSD</b> flash/fast/no moving parts. <b>RAID</b> = drives combined for redundancy or speed \u2014 <b>not a backup</b>. <b>GPU</b> = thousands of simple cores \u2192 Monte Carlo, deformable registration, CBCT reconstruction, AI. Faster, <b>not</b> more accurate.'},
+    pearls:[
+      'The CPU is where calculation happens; multiple CORES let it work on several tasks at once. Every component connects through the motherboard.',
+      'RAM is fast, VOLATILE working space \u2014 contents are lost at power-off. ROM is non-volatile and cannot be written in normal use. Storage (the drives) is non-volatile and permanent.',
+      'The dose grid being optimised sits in RAM; the archived plan sits on storage.',
+      'HDD = spinning magnetic platters, cheaper per TB, slower. SSD = flash memory, no moving parts, much faster.',
+      'RAID combines drives for redundancy or speed \u2014 but RAID is NOT a backup: it survives a failed drive, yet copies deletion and corruption to every disk.',
+      'A GPU has many simple cores, so it accelerates parallel work like Monte Carlo dose calculation and deformable registration. It makes them FASTER, not more accurate.'
+    ],
+    traps:[
+      'Confusing memory with storage. RAM is temporary working space; drives are permanent storage. Losing power empties RAM and leaves storage untouched.',
+      'Assuming RAID is a backup. It is redundancy against hardware failure only \u2014 a separate backup is still required.',
+      'Believing a GPU improves dose accuracy. It shortens calculation time; the algorithm and its result are unchanged.',
+      'Thinking ROM can be freely rewritten. It is READ-ONLY in normal use \u2014 that is the whole point of the name.'
+    ],
+    formulas:[],
+  },
+  {
+    id:'image-data', domain:'planning', matrix:'Matrix III.9', title:'Digital Image Data: Matrix Size, Bit Depth & File Size',
+    minutes:14, mastery:0, full:true,
+    source:{author:'Bushberg et al.; Khan & Gibbons', book:'The Essential Physics of Medical Imaging & Khan\u2019s The Physics of Radiation Therapy', chapter:'Digital Image Data \u2014 Matrix, Bit Depth, Storage'},
+    objectives:[
+      'State the standard image matrix for CT, MR, and digital radiography.',
+      'Convert bit depth into the number of available grey levels.',
+      'Estimate the size of an imaging dataset from matrix, bit depth, and slice count.',
+      'Distinguish spatial resolution from grey-scale resolution.',
+      'Expand the common transfer-protocol acronyms and say when lossless compression is required.'
+    ],
+    videoLabel:'A pixel grid filling in slice by slice \u2014 matrix sets the grid, bit depth sets the shades, and the two multiply out into megabytes.',
+    videoLen:'4:20',
+    notes:[
+      'A digital image is a grid of picture elements \u2014 PIXELS \u2014 and the size of that grid is the MATRIX. Each pixel holds a single number standing for the signal at that point. The matrix is set by the modality and the standard values are worth memorising: a CT slice is conventionally 512 \u00d7 512, an MR slice 256 \u00d7 256, and a digital or computed radiograph 2048 \u00d7 2048. Matrix is not the same thing as pixel SIZE. Pixel size is the field of view divided by the matrix dimension, so a 50 cm FOV across a 512 matrix gives roughly 1 mm pixels, while a 25 cm FOV across that same matrix gives roughly 0.5 mm. Tightening the field of view at a fixed matrix sharpens the image; opening it up coarsens it. Give a pixel a slice thickness and it becomes a VOXEL \u2014 and it is the voxel that the planning system assigns an electron density to for dose calculation.',
+      'How many shades a pixel can express is its BIT DEPTH, and the arithmetic is a plain power of two: n bits gives 2\u207f distinct grey levels. So 8 bits gives 256 levels, 10 bits gives 1,024, 12 bits gives 4,096, and 16 bits gives 65,536. By modality: MR typically uses about 12 bits per pixel; CT needs at least 12 bits to span the Hounsfield range from about \u22121000 up past +3000, and modern scanners may use 16; digital radiography uses 16 bits, which is 2 bytes. Keep the two resolutions separate in your head \u2014 the MATRIX governs SPATIAL resolution (how fine the detail is), while BIT DEPTH governs GREY-SCALE or contrast resolution (how many shades are available). Neither a monitor nor the eye can display 4,096 shades at once, which is exactly why window and level exist: they select which portion of the stored grey range gets mapped onto the display.',
+      'Dataset size follows directly from those two numbers: SIZE = pixels per slice \u00d7 bytes per pixel \u00d7 number of slices. Almost every clinical modality stores 2 bytes (16 bits) per pixel, so that is the figure to reach for. A CT slice is 512 \u00d7 512 = 262,144 pixels, which at 2 bytes is about 524 kB per slice \u2014 so a 100-slice CT study comes to roughly 50 MB. An MR slice is 256 \u00d7 256 = 65,536 pixels, about 131 kB per slice, so a 50-slice MR series is roughly 6 MB. A single digital radiograph at 2048 \u00d7 2048 is about 8 MB on its own, which is why plain radiography files are larger than people expect. This arithmetic is what lets you estimate archive space and predict how long a transfer will take.',
+      'The storage ladder runs bit \u2192 byte (8 bits) \u2192 kilobyte \u2192 megabyte \u2192 gigabyte \u2192 terabyte. Two conventions coexist for the steps between them. The DECIMAL (SI) convention multiplies by 1,000 at each step, so 1 TB = 1,000 GB = 1,000,000 MB; this is what drive manufacturers print on the box and what exam questions almost always intend. The BINARY convention multiplies by 1,024, so 1 kibibyte = 1,024 bytes; this is what many operating systems use when they report a file size. Same disk, two different numbers \u2014 which is why a drive sold as 1 TB shows up as roughly 931 GB. Pick one convention and stay in it for the whole calculation.',
+      'Finally, the acronyms. Images move between devices under DICOM (Digital Imaging and Communications in Medicine) and are archived in a PACS (Picture Archiving and Communication SYSTEM), but two general-purpose internet protocols come up by name: HTTP is the HyperText Transfer PROTOCOL, the protocol behind web pages, with HTTPS as its encrypted form; FTP is the File Transfer Protocol, used for moving files in bulk. Both ride on TCP/IP. One clinical rule sits on top of all of it: LOSSLESS compression reconstructs the original image exactly and is what diagnostic and planning images require, whereas LOSSY compression throws information away to shrink the file and is not acceptable for any image that drives contouring or dose calculation.'
+    ],
+    clinical:'A department is sizing a new archive. Its CT simulator produces roughly 150 slices per patient at 512 \u00d7 512 and 2 bytes per pixel, which works out to about 79 MB per planning scan; the MR fusion series adds a further 6 MB or so. Rounding to 85 MB per patient and planning for 1,200 new patients a year gives about 102 GB of primary image data annually, before structure sets, dose grids, and DRRs. Over a seven-year retention period that is comfortably inside a 1 TB allocation \u2014 which, remember, the operating system will report as roughly 931 GB. The dosimetrist also confirms the archive is configured for lossless compression only, since these are the images contours and dose are built on.',
+    mnemonic:{title:'512 CT, 256 MR, 2048 X-ray \u2014 and always two bytes a pixel', body:'<b>Matrix</b>: CT <b>512\u00b2</b>, MR <b>256\u00b2</b>, digital radiograph <b>2048\u00b2</b>. <b>Grey levels = 2\u207f</b> \u2014 8 bits \u2192 256, 10 \u2192 1,024, 12 \u2192 4,096, 16 \u2192 65,536. <b>Size = matrix\u00b2 \u00d7 2 bytes \u00d7 slices</b>: CT 100 slices \u2248 <b>50 MB</b>, MR 50 slices \u2248 <b>6 MB</b>, one radiograph \u2248 <b>8 MB</b>. <b>Matrix = sharpness, bit depth = shades.</b>',},
+    pearls:[
+      'Standard matrices: CT 512 \u00d7 512, MR 256 \u00d7 256, digital or computed radiography 2048 \u00d7 2048.',
+      'Grey levels = 2\u207f where n is the bit depth: 8 bits \u2192 256, 10 bits \u2192 1,024, 12 bits \u2192 4,096, 16 bits \u2192 65,536.',
+      'Bit depth by modality: MR about 12 bits; CT at least 12 (to cover the Hounsfield range) with modern scanners up to 16; digital radiography 16 bits = 2 bytes per pixel.',
+      'Dataset size = pixels per slice \u00d7 bytes per pixel \u00d7 slices. A 100-slice CT \u2248 50 MB; a 50-slice MR \u2248 6 MB; a single digital radiograph \u2248 8 MB.',
+      'Pixel size = field of view \u00f7 matrix dimension. Matrix sets SPATIAL resolution; bit depth sets GREY-SCALE resolution. A pixel plus slice thickness is a voxel.',
+      'Decimal storage ladder: 1 TB = 1,000 GB = 1,000,000 MB. Operating systems often report the binary ladder (1,024 per step) instead \u2014 same disk, different number.',
+      'HTTP = HyperText Transfer Protocol; FTP = File Transfer Protocol; PACS = Picture Archiving and Communication System; DICOM = Digital Imaging and Communications in Medicine. Diagnostic and planning images require LOSSLESS compression.'
+    ],
+    traps:[
+      'Treating matrix size and pixel size as the same thing \u2014 a 512 matrix over a wide field of view has coarser pixels than the same matrix over a tight one.',
+      'Reading bit depth as sharpness. It sets the number of available grey shades, not the spatial detail.',
+      'Swapping the modality matrices. CT is the 512, MR is the 256, and radiography is the big one at 2048.',
+      'Using 1 byte per pixel in the size arithmetic. Clinical images are 2 bytes, so a 1-byte assumption halves every answer.',
+      'Mixing the decimal and binary ladders inside one calculation.',
+      'Expanding the acronyms loosely: HTTP ends in Protocol, not Program; PACS is a System, not Software; DICOM is Communications, not Command.'
+    ],
+    formulas:[
+      {name:'Grey levels from bit depth', tex:'L = 2^{n}'},
+      {name:'Pixel size', tex:'\\text{pixel} = \\dfrac{\\text{FOV}}{\\text{matrix}}'},
+      {name:'Dataset size', tex:'\\text{size} = (\\text{matrix})^2 \\times \\text{bytes/pixel} \\times \\text{slices}'}
+    ],
+  },
+  {
     id:'implant-devices', domain:'planning', matrix:'Matrix III.13', title:'Implanted Devices: Cardiac Devices (CIEDs), Spacers, Fiducials & Prostheses',
     minutes:28, mastery:0, full:true,
     source:{author:'AAPM TG-203; Khan et al. (TP); Perez & Brady', book:'AAPM TG-203 (cardiac devices) & Khan\u2019s Treatment Planning in Radiation Oncology', chapter:'Implanted Devices & Radiation Therapy'},
@@ -2615,7 +2705,7 @@ const LESSONS = [
       'Finally, these systems hold protected health information and control a medical device chain, so security and continuity matter. Access controls, audit logs, and compliance with privacy rules (such as HIPAA) protect patient data; managed software updates and validated changes protect the treatment chain; and documented downtime procedures ensure care continues safely when a system is unavailable. Sound data management is, in the end, a patient-safety function as much as an IT one.',
       'A little computing vocabulary underpins all of this, and the MDCB uses these terms directly. The smallest unit of digital information is the BIT \u2014 a binary digit, either 0 or 1. Eight bits make a BYTE. From there the ladder is built on 2\u00b9\u2070, not 1000: 1 kilobyte = 1,024 bytes, 1 megabyte = 1,024 kB, 1 gigabyte = 1,024 MB. That matters practically, because a planning CT is hundreds of images and a department\u2019s archive grows into terabytes \u2014 which is why storage capacity and retention policy are real planning decisions, not IT trivia.',
       'ANALOG signals are continuous in both time and amplitude; DIGITAL signals are discrete \u2014 sampled into fixed steps. The bridge between them is the ANALOG-TO-DIGITAL CONVERTER (ADC), which turns a continuous physical signal (the charge from a detector, the output of an imaging panel) into numbers a computer can store and process. Every digital image in the department has passed through an ADC. Sampling finely enough matters: too coarse a conversion and real detail is lost before anyone ever sees the image.',
-      'Inside the machine: the CPU (central processing unit) is where calculations actually happen \u2014 the reason a Monte Carlo dose calculation is a hardware question as much as an algorithm one. RAM (random-access memory) holds the operating system, the running program, and the data in current use so the processor can reach it quickly; it is fast but volatile, so its contents are lost on power-down. ROM (read-only memory) holds data that cannot be modified in normal use. A dose grid being optimised lives in RAM; the archived plan lives on storage.',
+      'Inside the machine, the hardware matters too: the CPU calculates, RAM is the fast but volatile working space, ROM is non-volatile and read-only in normal use, and the drives are permanent storage \u2014 a dose grid being optimised lives in RAM, while the archived plan lives on storage. These components, along with GPUs and RAID arrays, are covered in full in the Computer Hardware Basics lesson.',
       'Between machines: a LAN (local area network) connects computers within a single site \u2014 your CT simulator, planning workstations, record-and-verify system and linacs. A WAN (wide area network) links sites across distance, which is how a multi-centre department or a remote-planning arrangement operates. The rules governing that traffic are TCP/IP: the Transmission Control Protocol handles reliable, ordered delivery of the data, and the Internet Protocol handles addressing and routing. DICOM transfers ride on top of TCP/IP \u2014 which is why a \u201cDICOM push\u201d that fails is often a network or configuration problem rather than a planning-system fault. (Note the collision: in networking TCP is a protocol, while in planning TCP means tumour control probability. Read the context.)',
       'Remote access has to be secured, because the traffic is protected health information. A VPN (virtual private network) creates an encrypted tunnel between a remote user and the institution\u2019s network, so the remote machine behaves as though it were on the local network. SSL/TLS (secure sockets layer, and its successor transport layer security) encrypts traffic to a specific web service using certificates and keys \u2014 it is what the padlock in a browser indicates. A VPN secures the whole connection; SSL/TLS secures a particular session. Either way, the principle is the same: PHI is never sent unencrypted.'
     ],
@@ -3145,7 +3235,7 @@ const LESSON_ORDER = [
   // Treatment Planning: techniques (conformal -> modulated -> electrons -> stereotactic -> special -> particles -> adaptive)
   'crt-3d','imrt','electron-therapy','srs','sbrt','tbi','proton','adaptive-auto',
   // Systems & devices (general planning infrastructure, before site-specific work)
-  'ptv-margins','dicom-systems','implant-devices',
+  'ptv-margins','computer-hardware','dicom-systems','image-data','implant-devices',
   // Site-specific planning
   'cns-cancer','hn-cancer','lung-cancer','breast-cancer','gi-cancer','prostate-cancer','gyn-cancer','lymphoma-cancer','skin-cancer','peds-cancer','sarcoma-cancer',
   // Dose Calculation (beam data -> scatter -> algorithms -> MU -> accumulation)
@@ -4066,12 +4156,75 @@ const QUIZ = [
   {id:'dcm-q12', lesson:'dicom-systems', q:'The device that converts a continuous detector signal into discrete numbers a computer can store is the:',
     options:['CPU.','ADC.','ROM.','MLC.'], answer:1,
     explain:'The analog-to-digital converter samples a continuous (analog) signal and outputs discrete digital values. The CPU then processes those numbers; ROM is non-modifiable storage.'},
-  {id:'dcm-q13', lesson:'dicom-systems', q:'Which memory holds the operating system and data in current use, and loses its contents when power is removed?',
+  {id:'dcm-q13', lesson:'computer-hardware', q:'Which memory holds the operating system and data in current use, and loses its contents when power is removed?',
     options:['ROM.','RAM.','PACS.','The hard disk archive.'], answer:1,
     explain:'RAM (random-access memory) is fast but volatile working memory. ROM is read-only and not modified in normal use; archives and disks retain data without power.'},
   {id:'dcm-q14', lesson:'dicom-systems', q:'A remote planner needs to work on departmental data from home. The method that encrypts the entire connection so the remote machine behaves as if on the local network is a:',
     options:['VPN.','SSL certificate on a single web page.','DICOM push.','WAN.'], answer:0,
     explain:'A VPN creates an encrypted tunnel covering the whole connection. SSL/TLS encrypts traffic to one particular web service. A WAN describes network scope, not security, and a DICOM push is a data transfer.'},
+  {id:'hw-q1', lesson:'computer-hardware', q:'Which component holds the operating system, the running program, and the data in current use, and loses its contents when power is removed?',
+    options:['ROM','RAM','The hard disk drive','The GPU'], answer:1,
+    explain:'RAM (random-access memory) is the fast, VOLATILE working space. ROM is non-volatile and read-only in normal use; drives are non-volatile permanent storage.'},
+  {id:'hw-q2', lesson:'computer-hardware', q:'Which statement about ROM is correct?',
+    options:['It is erased whenever the machine is powered down.','It is the main working memory for a running dose calculation.','It retains its contents without power and cannot be written in normal use.','It stores the long-term patient archive.'], answer:2,
+    explain:'ROM is read-only memory \u2014 non-volatile, holding start-up firmware, and not rewritable in normal use. That is precisely what distinguishes it from RAM.'},
+  {id:'hw-q3', lesson:'computer-hardware', q:'Compared with a hard disk drive, a solid-state drive:',
+    options:['is slower but cheaper per terabyte.','has no moving parts and is substantially faster.','stores data magnetically on spinning platters.','loses its contents when powered down.'], answer:1,
+    explain:'An SSD uses flash memory with no moving parts, making it much faster and more robust than a mechanical HDD, though more expensive per terabyte. Both are non-volatile.'},
+  {id:'hw-q4', lesson:'computer-hardware', q:'A department stores its image archive on a mirrored RAID array. Does this remove the need for a separate backup?',
+    options:['Yes \u2014 RAID is a form of backup.','Yes, provided at least three drives are used.','No \u2014 RAID protects against drive failure but copies deletion and corruption to every disk.','No, but only because RAID arrays are unreliable.'], answer:2,
+    explain:'RAID gives redundancy against hardware failure. An accidentally deleted, corrupted, or encrypted file is written faithfully to every drive in the array, so a separate \u2014 ideally off-site \u2014 backup is still required.'},
+  {id:'hw-q5', lesson:'computer-hardware', q:'What makes a GPU well suited to Monte Carlo dose calculation?',
+    options:['It has a single very fast core.','It has hundreds to thousands of simple cores that run many identical calculations in parallel.','It stores the dose grid permanently.','It improves the accuracy of the transport physics.'], answer:1,
+    explain:'Monte Carlo tracks millions of independent particle histories \u2014 a naturally parallel problem, which suits the GPU\u2019s many simple cores. It shortens calculation time; it does not change the algorithm or its accuracy.'},
+  {id:'hw-q6', lesson:'computer-hardware', q:'Adding a compute-capable GPU reduces a Monte Carlo calculation from twenty minutes to one minute. The resulting dose distribution is:',
+    options:['more accurate, because more histories are simulated.','less accurate, because the calculation is rushed.','unchanged \u2014 the same algorithm returns the same result, only faster.','unchanged in the target but degraded in the penumbra.'], answer:2,
+    explain:'Hardware acceleration changes only the speed. The algorithm, the number of histories, and therefore the result are the same \u2014 which is exactly why GPU acceleration makes adaptive workflows practical.'},
+  {id:'hw-q7', lesson:'computer-hardware', q:'The main circuit board into which the processor, memory, and drives all connect is the:',
+    options:['motherboard.','graphics card.','power supply.','network interface.'], answer:0,
+    explain:'The motherboard carries the power and data pathways linking every other component.'},
+  {id:'hw-q8', lesson:'computer-hardware', q:'A CPU described as having multiple cores is able to:',
+    options:['store more data permanently.','work on several tasks genuinely at the same time.','display images at higher resolution.','operate without any RAM.'], answer:1,
+    explain:'Each core is an independent processing unit, so a multi-core CPU performs genuine parallel work. Clock speed (GHz) and on-chip cache also affect how quickly work is completed.'},
+  {id:'hw-q10', lesson:'computer-hardware', q:'A dosimetrist is optimising an IMRT plan when the power fails. What is lost?',
+    options:['The archived plans on the department server.','The unsaved work held in RAM.','The contents of ROM.','Everything on the solid-state drive.'], answer:1,
+    explain:'RAM is volatile, so anything held there and not yet saved is lost. ROM, SSDs, HDDs and the server archive are all non-volatile and unaffected.'},
+  {id:'img-q1', lesson:'image-data', q:'A conventional CT slice is reconstructed on a matrix of:',
+    options:['256 \u00d7 256','512 \u00d7 512','1024 \u00d7 1024','2048 \u00d7 2048'], answer:1,
+    explain:'CT reconstructs to 512 \u00d7 512 as standard. MR is typically 256 \u00d7 256, and digital or computed radiography uses the much larger 2048 \u00d7 2048.'},
+  {id:'img-q2', lesson:'image-data', q:'A typical MR slice is acquired on a matrix of:',
+    options:['128 \u00d7 128','256 \u00d7 256','512 \u00d7 512','1024 \u00d7 1024'], answer:1,
+    explain:'MR conventionally uses 256 \u00d7 256 \u2014 half the linear matrix of CT, so a quarter of the pixels and roughly a quarter of the data per slice.'},
+  {id:'img-q3', lesson:'image-data', q:'A digital or computed radiograph is typically acquired on a matrix of:',
+    options:['256 \u00d7 256','512 \u00d7 512','1024 \u00d7 1024','2048 \u00d7 2048'], answer:3,
+    explain:'Projection radiography needs high spatial resolution across a large detector, so it uses 2048 \u00d7 2048 \u2014 which is why a single plain image is around 8 MB.'},
+  {id:'img-q4', lesson:'image-data', q:'An image stored with a bit depth of 10 can display how many distinct grey levels?',
+    options:['256','512','1,024','2,048'], answer:2,
+    explain:'Grey levels = 2\u207f, so 2\u00b9\u2070 = 1,024. For reference: 8 bits gives 256, 12 bits gives 4,096, and 16 bits gives 65,536.'},
+  {id:'img-q5', lesson:'image-data', q:'MR imaging typically stores how many bits per pixel?',
+    options:['4','6','8','12'], answer:3,
+    explain:'MR typically uses about 12 bits per pixel, giving 4,096 grey levels. Those 12 bits are still written into a 2-byte (16-bit) storage word.'},
+  {id:'img-q6', lesson:'image-data', q:'A modern CT scanner may use how many bits per pixel?',
+    options:['4','8','12','16'], answer:3,
+    explain:'CT needs at least 12 bits to span the Hounsfield range from about \u22121000 past +3000; modern scanners may use 16 bits, which is exactly 2 bytes per pixel.'},
+  {id:'img-q7', lesson:'image-data', q:'How many bytes are needed per pixel in digital radiography?',
+    options:['1','2','3','4'], answer:1,
+    explain:'Digital radiography uses 16 bits per pixel, and 16 bits is 2 bytes. This 2-bytes-per-pixel figure is the one to use in almost all dataset-size arithmetic.'},
+  {id:'img-q8', lesson:'image-data', q:'Approximately how large is a 100-slice CT dataset?',
+    options:['50 MB','100 MB','200 MB','1,000 MB'], answer:0,
+    explain:'512 \u00d7 512 = 262,144 pixels; at 2 bytes each that is about 524 kB per slice, and 100 slices comes to roughly 50 MB.'},
+  {id:'img-q9', lesson:'image-data', q:'Approximately how large is a 50-slice MR dataset?',
+    options:['1 MB','6 MB','12 MB','50 MB'], answer:1,
+    explain:'256 \u00d7 256 = 65,536 pixels; at 2 bytes each that is about 131 kB per slice, so 50 slices is roughly 6 MB \u2014 far smaller than the CT because the matrix is a quarter the size.'},
+  {id:'img-q10', lesson:'image-data', q:'Using the decimal storage convention, 1 TB is equal to how many MB?',
+    options:['1,000','1,000,000','1,000,000,000','1,000,000,000,000'], answer:1,
+    explain:'Decimal (SI) steps multiply by 1,000: 1 TB = 1,000 GB = 1,000,000 MB. Operating systems often report the binary ladder (1,024 per step) instead, which is why a 1 TB drive shows as about 931 GB.'},
+  {id:'img-q11', lesson:'image-data', q:'HTTP stands for HyperText Transfer Program.',
+    options:['True','False'], answer:1,
+    explain:'False \u2014 the final P is PROTOCOL, not Program. Watch the same trap with PACS (Picture Archiving and Communication System, not Software) and DICOM (Digital Imaging and Communications in Medicine, not Command).'},
+  {id:'img-q12', lesson:'image-data', q:'Which type of compression is acceptable for images used for contouring and dose calculation?',
+    options:['Lossy, because the file is smaller.','Lossless, because the original image is reconstructed exactly.','Either, provided the file opens.','Neither \u2014 compression is never permitted.'], answer:1,
+    explain:'Lossless compression reconstructs the original exactly and is required for diagnostic and planning images. Lossy compression discards information and is not acceptable where the image drives contours or dose.'},
   {id:'dcm-q1', lesson:'dicom-systems', q:'Which DICOM-RT object holds the beam geometry, monitor units, and prescription?',
     options:['RT Structure Set.','RT Plan.','RT Dose.','RT Image.'], answer:1,
     explain:'The RT Plan carries beam geometry, energies, monitor units, MLC/jaw shapes, isocentre, and prescription. The Structure Set holds contours; RT Dose holds the 3D dose grid; RT Image holds DRRs/portal images.'},
@@ -7125,6 +7278,16 @@ FLASHCARDS.push(
   {id:'dcm22', lesson:'dicom-systems', front:'Distinguish CPU, RAM and ROM.', back:'CPU (central processing unit) is where calculations happen. RAM (random-access memory) is fast working memory holding the OS, running programs and current data \u2014 volatile, so lost on power-down. ROM (read-only memory) holds data that cannot be modified in normal use.', box:0, due:new Date()},
   {id:'dcm23', lesson:'dicom-systems', front:'LAN vs WAN \u2014 and what protocol carries DICOM between them?', back:'A LAN (local area network) connects computers within one site; a WAN (wide area network) links sites across distance. DICOM transfers run over TCP/IP \u2014 TCP for reliable ordered delivery, IP for addressing and routing.', box:0, due:new Date()},
   {id:'dcm24', lesson:'dicom-systems', front:'How does a VPN differ from SSL/TLS?', back:'A VPN (virtual private network) builds an encrypted tunnel so a remote machine behaves as if on the local network \u2014 it secures the whole connection. SSL/TLS uses certificates and keys to encrypt traffic to a particular web service \u2014 it secures a specific session. Both exist so PHI is never sent unencrypted.', box:0, due:new Date()},
+  {id:'hwd1', lesson:'computer-hardware', front:'What is the difference between memory and storage?', back:'RAM is the working space \u2014 fast, holding the OS, running program and data in use, and VOLATILE, so contents are lost at power-off. ROM is non-volatile and not writable in normal use (start-up firmware). Storage (HDD/SSD) is non-volatile and permanent. The dose grid being optimised is in RAM; the archived plan is on storage.', box:0, due:new Date()},
+  {id:'hwd2', lesson:'computer-hardware', front:'Compare an HDD with an SSD.', back:'HDD: data written magnetically to spinning platters, mechanical, cheaper per TB, slower, wears out \u2014 suits bulk archive. SSD: flash memory, no moving parts, much faster and more robust, more expensive per TB \u2014 suits the OS, the planning software, and actively used datasets. Both are non-volatile.', box:0, due:new Date()},
+  {id:'hwd3', lesson:'computer-hardware', front:'What does RAID do, and why is it not a backup?', back:'RAID (redundant array of independent disks) makes several drives act as one \u2014 mirroring for redundancy, striping for speed, or both. It protects against a drive failing. It is not a backup because deletion, corruption and ransomware are written faithfully to every drive in the array, so a separate off-site backup is still needed.', box:0, due:new Date()},
+  {id:'hwd4', lesson:'computer-hardware', front:'What is a GPU and why does it matter in radiation oncology?', back:'A graphics processing unit has hundreds to thousands of simple cores, so it excels at problems that split into many identical parallel calculations: Monte Carlo dose, deformable image registration, CBCT reconstruction, auto-segmentation and AI models. It makes these FASTER, not more accurate \u2014 which is what makes Monte Carlo and same-day adaptive workflows clinically practical.', box:0, due:new Date()},
+  {id:'hwd5', lesson:'computer-hardware', front:'What does a CPU do, and what determines how fast it works?', back:'The central processing unit performs the calculations. Speed depends on clock speed (GHz, cycles per second), the number of CORES (independent units allowing genuine parallel work), and CACHE (small ultra-fast on-chip memory). Everything plugs into the MOTHERBOARD, which carries power and data between components.', box:0, due:new Date()},
+  {id:'imgd1', lesson:'image-data', front:'Give the standard image matrix for CT, MR, and digital radiography.', back:'CT 512 \u00d7 512. MR 256 \u00d7 256. Digital or computed radiography 2048 \u00d7 2048. Pixel size is a separate quantity: field of view \u00f7 matrix dimension.', box:0, due:new Date()},
+  {id:'imgd2', lesson:'image-data', front:'How do you convert bit depth into grey levels, and what are the common values?', back:'Grey levels = 2\u207f. 8 bits \u2192 256; 10 bits \u2192 1,024; 12 bits \u2192 4,096; 16 bits \u2192 65,536. MR uses about 12 bits, modern CT up to 16, digital radiography 16 (= 2 bytes).', box:0, due:new Date()},
+  {id:'imgd3', lesson:'image-data', front:'How do you estimate the size of an imaging dataset?', back:'Size = pixels per slice \u00d7 bytes per pixel \u00d7 slices, using 2 bytes per pixel. CT: 512\u00b2 \u00d7 2 B \u2248 524 kB/slice, so 100 slices \u2248 50 MB. MR: 256\u00b2 \u00d7 2 B \u2248 131 kB/slice, so 50 slices \u2248 6 MB. One digital radiograph \u2248 8 MB.', box:0, due:new Date()},
+  {id:'imgd4', lesson:'image-data', front:'What is the difference between spatial resolution and grey-scale resolution?', back:'Spatial resolution is set by the MATRIX (and pixel size = FOV \u00f7 matrix) \u2014 how fine the detail is. Grey-scale resolution is set by BIT DEPTH \u2014 how many shades are available. Window/level exists because a display cannot show all stored shades at once.', box:0, due:new Date()},
+  {id:'imgd5', lesson:'image-data', front:'Expand HTTP, FTP, PACS and DICOM \u2014 and state which compression medical images require.', back:'HTTP = HyperText Transfer Protocol (not Program). FTP = File Transfer Protocol. PACS = Picture Archiving and Communication System (not Software). DICOM = Digital Imaging and Communications in Medicine (not Command). Diagnostic and planning images require LOSSLESS compression.', box:0, due:new Date()},
   {id:'dcm1', lesson:'dicom-systems', front:'What are the main DICOM-RT objects?', back:'CT images (anatomy), RT Structure Set (contours), RT Plan (beams/energies/MU/MLC/isocentre/Rx), RT Dose (3D dose grid), RT Image (DRRs/portal), and RT Treatment Record (delivered). A plan is this linked bundle, not one file.', box:0, due:new Date()},
   {id:'dcm2', lesson:'dicom-systems', front:'Trace the external-beam data flow.', back:'CT sim \u2192 treatment planning system \u2192 oncology information/record-and-verify system \u2192 linac, with the treatment record flowing back to the chart. Each hand-off is verified so the plan that arrives matches the plan that was sent.', box:0, due:new Date()},
   {id:'dcm3', lesson:'dicom-systems', front:'What is the DICOM frame of reference and why does it matter?', back:'A coordinate system tied to the CT that all objects (structures, plan isocentre, dose) reference, along with patient orientation. Inconsistency between objects/systems shifts or flips dose and contours relative to the images \u2014 an avoidable, serious error.', box:0, due:new Date()},
@@ -7468,6 +7631,8 @@ const state = {
   vaultBarrier:'primary', // for vault-shielding diagram
   iqaMethod:'chamber', // for imrt-qa diagram
   dicomObj:'image', // for dicom-systems diagram
+  imgMod:'ct', // for digital image data modality diagram
+  hwPart:'cpu', // for computer hardware diagram
   regType:'rigid', // for deformable/accumulation diagram
   locTopic:'data', // for patient-data/localization diagram
   detType:'gm', // for radiation-detectors diagram
@@ -8068,6 +8233,74 @@ function navigate(view, opts){
 function openSidebar(){ var s=document.getElementById('sidebar'); if(s) s.classList.add('open'); var b=document.getElementById('sidebar-backdrop'); if(b) b.classList.add('open'); }
 function closeSidebar(){ var s=document.getElementById('sidebar'); if(s) s.classList.remove('open'); var b=document.getElementById('sidebar-backdrop'); if(b) b.classList.remove('open'); }
 function toggleSidebar(){ var s=document.getElementById('sidebar'); if(!s) return; var open=s.classList.toggle('open'); var b=document.getElementById('sidebar-backdrop'); if(b) b.classList.toggle('open', open); }
+
+/* ---- Swipe to open / close the sidebar (touch devices, mobile layout only).
+   Swipe right anywhere -> sidebar in. Swipe left -> sidebar out.
+
+   The guards matter more than the gesture itself. A naive handler steals
+   horizontal scrolling from wide tables and formula rows, fires on ordinary
+   vertical scrolls, and fights pinch-zoom. So a swipe only counts when it is
+   a single finger, a genuine flick rather than a slow drag or text selection,
+   clearly horizontal, and did not start inside something that scrolls
+   sideways on its own. Listeners are passive so scrolling stays smooth. ---- */
+(function initSidebarSwipe(){
+  var MIN_DIST = 60;    // px of horizontal travel needed to count
+  var DOMINANCE = 1.8;  // horizontal must beat vertical by this factor
+  var MAX_MS = 700;     // longer than this is a drag, not a swipe
+  var sx = 0, sy = 0, startedAt = 0, tracking = false;
+
+  function mobileLayout(){
+    return window.matchMedia('(max-width: 880px)').matches;
+  }
+  function sidebarOpen(){
+    var el = document.getElementById('sidebar');
+    return !!(el && el.classList.contains('open'));
+  }
+  /* Walk up from the touched node: if anything on the way can scroll
+     sideways, the gesture belongs to that element (a wide memorize table,
+     a long formula, the tab strip) and not to the sidebar. */
+  function inSideScroller(node){
+    for(var el = node; el && el !== document.body; el = el.parentElement){
+      if(el.scrollWidth > el.clientWidth + 4){
+        var ox = getComputedStyle(el).overflowX;
+        if(ox === 'auto' || ox === 'scroll') return true;
+      }
+    }
+    return false;
+  }
+  /* Controls that consume horizontal drags themselves. */
+  function isDragControl(node){
+    var el = node && node.closest ? node.closest('input[type="range"], [role="slider"]') : null;
+    return !!el;
+  }
+
+  document.addEventListener('touchstart', function(e){
+    tracking = false;
+    if(!mobileLayout()) return;
+    if(!e.touches || e.touches.length !== 1) return;      // pinch / multi-touch
+    if(document.getElementById('auth-screen')) return;    // sign-in screen, no shell
+    if(isDragControl(e.target) || inSideScroller(e.target)) return;
+    sx = e.touches[0].clientX;
+    sy = e.touches[0].clientY;
+    startedAt = Date.now();
+    tracking = true;
+  }, {passive:true});
+
+  document.addEventListener('touchend', function(e){
+    if(!tracking) return;
+    tracking = false;
+    var t = e.changedTouches && e.changedTouches[0];
+    if(!t) return;
+    if(Date.now() - startedAt > MAX_MS) return;
+    var dx = t.clientX - sx, dy = t.clientY - sy;
+    if(Math.abs(dx) < MIN_DIST) return;
+    if(Math.abs(dx) < Math.abs(dy) * DOMINANCE) return;   // really a vertical scroll
+    if(dx > 0){ if(!sidebarOpen()) openSidebar(); }
+    else { if(sidebarOpen()) closeSidebar(); }
+  }, {passive:true});
+
+  document.addEventListener('touchcancel', function(){ tracking = false; }, {passive:true});
+})();
 
 function toggleDark(){
   state.dark = !state.dark;
@@ -9671,7 +9904,7 @@ const GROUP_DEFS = {
      extras:[{label:'ProKnow platform checklist', sub:'Every platform skill to master before exam day \u2014 navigating, measuring, contouring', icon:ICON.check, go:"navigate('proknow')"}],
      soon:'Lessons for this section are on the way \u2014 a site-by-site contouring atlas covering larynx and glottis, parotids, brainstem, spinal cord and more. Each site will cover the CT landmarks, the contour borders slice by slice, and the published dose tolerances.'},
     {name:'Techniques & Special Procedures', ids:['crt-3d','imrt','electron-therapy','srs','sbrt','tbi','proton','adaptive-auto']},
-    {name:'Systems & Devices', ids:['dicom-systems','implant-devices']},
+    {name:'Systems & Devices', ids:['computer-hardware','dicom-systems','image-data','implant-devices']},
     {name:'Site-Specific Planning', open:false, ids:['cns-cancer','hn-cancer','lung-cancer','breast-cancer','gi-cancer','prostate-cancer','gyn-cancer','lymphoma-cancer','skin-cancer','peds-cancer','sarcoma-cancer']}
   ],
   dosecalc: [
@@ -9931,7 +10164,7 @@ function renderLesson(){
       </div>
       <h1 style="font-size:24px; margin-top:12px;">${l.title}</h1>
 
-      <div id="lesson-tabs-wrap" style="position:sticky; top:var(--topbar-h); z-index:14; background:var(--bg); margin-top:16px; padding:10px 0 9px; border-bottom:1px solid var(--border);">
+      <div id="lesson-tabs-wrap" style="background:var(--bg); margin-top:16px; padding:10px 0 9px; border-bottom:1px solid var(--border);">
         <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
           <span style="font-size:11.5px; color:var(--ink-faint); font-weight:700; white-space:nowrap;">${seen.length} of ${LESSON_SECTIONS.length} read</span>
           <div class="progress-track" style="flex:1; min-width:120px; height:5px;"><div class="progress-fill" style="width:${m}%; background:${masteryColor(m)}"></div></div>
@@ -9969,7 +10202,7 @@ function renderLesson(){
 
             ${open ? `<div style="padding:4px 24px 24px;">
               ${lessonSectionContent(l, x.id)}
-              ${sourceFooter(l)}
+              ${x.id==='objectives' ? sourceFooter(l) : ''}
               ${nextSectionNudge(l, x.id)}
             </div>` : ''}
           </div>`;
@@ -9999,7 +10232,12 @@ function renderLesson(){
       }).join('')}
     </div>
   </div>
-  <style>@media (max-width:980px){ .lesson-side{display:none;} }</style>
+  <style>
+    @media (max-width:980px){ .lesson-side{display:none;} }
+    /* The lesson progress bar is deliberately NOT sticky, at any width: it
+       scrolls away with the content instead of pinning under the topbar and
+       covering the section being read. */
+  </style>
   `;
 }
 
@@ -10091,6 +10329,7 @@ function toggleSection(lessonId, secId){
   // Hold the page still \u2014 expanding a section shouldn't yank you elsewhere.
   requestAnimationFrame(()=>window.scrollTo({top:y, behavior:'instant'}));
 }
+
 function openSection(lessonId, secId){
   const arr = openSections(lessonId);
   if(!arr.includes(secId)){ arr.push(secId); markSectionSeen(lessonId, secId); }
@@ -13511,6 +13750,35 @@ function animatedExplainer(l){
         ${[[160,80],[220,74],[280,96],[200,120],[300,140],[250,60],[180,150],[320,110]].map(function(p,i){return '<circle cx="'+p[0]+'" cy="'+p[1]+'" r="7" fill="var(--red)"><animate attributeName="fill" values="#c0392b;#c0392b;#16a085" keyTimes="0;'+(0.3+i*0.06)+';'+(0.4+i*0.06)+'" dur="4s" repeatCount="indefinite"/></circle>';}).join('')}
         <text x="240" y="186" font-size="9" fill="var(--teal)" font-family="Inter" text-anchor="middle" opacity="0"><animate attributeName="opacity" values="0;0;1;1" keyTimes="0;0.75;0.9;1" dur="4s" repeatCount="indefinite"/>passing rate \u2265 95% \u2192 clear</text>
       </svg>`,
+    'computer-hardware': `
+      <svg viewBox="0 0 480 190" style="width:100%; max-width:680px;">
+        <text x="30" y="24" font-size="12" fill="var(--ink-soft)" font-family="Inter" font-weight="700">Inside a planning workstation</text>
+        <rect x="30" y="36" width="300" height="130" rx="10" fill="none" stroke="var(--border)" stroke-dasharray="4 3"/>
+        <rect x="52" y="56" width="112" height="42" rx="7" fill="var(--accent)" opacity="0.10"><animate attributeName="opacity" values="0.10;0.30;0.10;0.10;0.10" keyTimes="0;0.12;0.25;0.9;1" dur="8s" repeatCount="indefinite"/></rect>
+        <text x="108" y="82" font-size="11" font-family="Inter" font-weight="800" fill="var(--accent)" text-anchor="middle">CPU</text>
+        <rect x="196" y="56" width="112" height="42" rx="7" fill="var(--teal)" opacity="0.10"><animate attributeName="opacity" values="0.10;0.10;0.30;0.10;0.10" keyTimes="0;0.25;0.37;0.5;1" dur="8s" repeatCount="indefinite"/></rect>
+        <text x="252" y="82" font-size="11" font-family="Inter" font-weight="800" fill="var(--teal)" text-anchor="middle">RAM</text>
+        <rect x="52" y="110" width="112" height="42" rx="7" fill="var(--amber)" opacity="0.10"><animate attributeName="opacity" values="0.10;0.10;0.10;0.30;0.10;0.10" keyTimes="0;0.45;0.5;0.62;0.75;1" dur="8s" repeatCount="indefinite"/></rect>
+        <text x="108" y="136" font-size="11" font-family="Inter" font-weight="800" fill="var(--amber)" text-anchor="middle">Storage</text>
+        <rect x="196" y="110" width="112" height="42" rx="7" fill="var(--accent-dark)" opacity="0.10"><animate attributeName="opacity" values="0.10;0.10;0.10;0.10;0.30;0.10" keyTimes="0;0.62;0.7;0.74;0.87;1" dur="8s" repeatCount="indefinite"/></rect>
+        <text x="252" y="136" font-size="11" font-family="Inter" font-weight="800" fill="var(--accent-dark)" text-anchor="middle">GPU</text>
+        <text x="180" y="180" font-size="7.5" font-family="Inter" fill="var(--ink-faint)" text-anchor="middle">all connected by the motherboard</text>
+        <text x="346" y="76" font-size="10" font-family="Inter" fill="var(--ink)" opacity="0"><animate attributeName="opacity" values="0;1;1;0;0" keyTimes="0;0.1;0.22;0.28;1" dur="8s" repeatCount="indefinite"/>calculates</text>
+        <text x="346" y="76" font-size="10" font-family="Inter" fill="var(--ink)" opacity="0"><animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;0.3;0.36;0.46;0.52;1" dur="8s" repeatCount="indefinite"/>working space \u2014 volatile</text>
+        <text x="346" y="76" font-size="10" font-family="Inter" fill="var(--ink)" opacity="0"><animate attributeName="opacity" values="0;0;0;1;1;0;0" keyTimes="0;0.52;0.58;0.63;0.72;0.78;1" dur="8s" repeatCount="indefinite"/>permanent \u2014 non-volatile</text>
+        <text x="346" y="76" font-size="10" font-family="Inter" fill="var(--ink)" opacity="0"><animate attributeName="opacity" values="0;0;0;0;1;1;0" keyTimes="0;0.72;0.78;0.82;0.88;0.95;1" dur="8s" repeatCount="indefinite"/>parallel \u2014 Monte Carlo</text>
+      </svg>`,
+    'image-data': `
+      <svg viewBox="0 0 480 190" style="width:100%; max-width:680px;">
+        <text x="30" y="24" font-size="12" fill="var(--ink-soft)" font-family="Inter" font-weight="700">Matrix \u00d7 bit depth \u00d7 slices = megabytes</text>
+        <rect x="30" y="38" width="130" height="130" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+        ${(function(){var o='',n=8,c=130/n;for(var r=0;r<n;r++){for(var q=0;q<n;q++){var i=r*n+q;o+='<rect x="'+(30+q*c)+'" y="'+(38+r*c)+'" width="'+(c-0.5)+'" height="'+(c-0.5)+'" fill="var(--accent)" opacity="0"><animate attributeName="opacity" values="0;'+(0.12+(i%6)*0.09).toFixed(2)+';'+(0.12+(i%6)*0.09).toFixed(2)+';0" keyTimes="0;'+(0.05+i/n/n*0.45).toFixed(3)+';0.9;1" dur="6s" repeatCount="indefinite"/></rect>';}}return o;})()}
+        <text x="95" y="182" font-size="8" fill="var(--ink-faint)" font-family="Inter" text-anchor="middle">pixels fill the matrix</text>
+        <text x="186" y="62" font-size="10" fill="var(--ink)" font-family="Inter" opacity="0"><animate attributeName="opacity" values="0;0;1;1;1" keyTimes="0;0.18;0.28;0.9;1" dur="6s" repeatCount="indefinite"/>512 \u00d7 512 = 262,144 pixels</text>
+        <text x="186" y="88" font-size="10" fill="var(--ink)" font-family="Inter" opacity="0"><animate attributeName="opacity" values="0;0;0;1;1;1" keyTimes="0;0.3;0.4;0.5;0.9;1" dur="6s" repeatCount="indefinite"/>\u00d7 2 bytes per pixel \u2248 524 kB / slice</text>
+        <text x="186" y="114" font-size="10" fill="var(--ink)" font-family="Inter" opacity="0"><animate attributeName="opacity" values="0;0;0;0;1;1;1" keyTimes="0;0.5;0.58;0.62;0.7;0.9;1" dur="6s" repeatCount="indefinite"/>\u00d7 100 slices</text>
+        <text x="186" y="146" font-size="14" fill="var(--accent-dark)" font-family="Inter" font-weight="800" opacity="0"><animate attributeName="opacity" values="0;0;0;0;0;1;1;0" keyTimes="0;0.6;0.68;0.72;0.76;0.82;0.94;1" dur="6s" repeatCount="indefinite"/>\u2248 50 MB</text>
+      </svg>`,
     'dicom-systems': `
       <svg viewBox="0 0 480 180" style="width:100%; max-width:680px;">
         <text x="40" y="24" font-size="12" fill="var(--ink-soft)" font-family="Inter" font-weight="700">DICOM-RT objects flow through the chain \u2014 verified at each step</text>
@@ -13627,7 +13895,7 @@ function lessonSectionContent(l, sec){
     </div>`;
   }
 
-  if(sec==='diagram') return l.id==='radiation-detectors' ? renderDetDiagram() : l.id==='patient-data-loc' ? renderLocDiagram() : l.id==='deform-accum' ? renderDfmDiagram() : l.id==='dicom-systems' ? renderDcmDiagram() : l.id==='imrt-qa' ? renderIqaDiagram() : l.id==='vault-shielding' ? renderVaultDiagram() : l.id==='adaptive-auto' ? renderAdaptDiagram() : l.id==='implant-devices' ? renderImplDiagram() : l.id==='safety-culture' ? renderSafeDiagram() : l.id==='chart-checks' ? renderChkDiagram() : l.id==='brachy-safety' ? renderBrsDiagram() : l.id==='xsec-anatomy' ? renderAnatDiagram() : l.id==='sarcoma-cancer' ? renderSarcDiagram() : l.id==='peds-cancer' ? renderPedsDiagram() : l.id==='skin-cancer' ? renderSkinDiagram() : l.id==='lymphoma-cancer' ? renderLymDiagram() : l.id==='gyn-cancer' ? renderGynDiagram() : l.id==='gi-cancer' ? renderGiDiagram() : l.id==='prostate-cancer' ? renderProstDiagram() : l.id==='breast-cancer' ? renderBreastDiagram() : l.id==='lung-cancer' ? renderLungDiagram() : l.id==='cns-cancer' ? renderCnsDiagram() : l.id==='hn-cancer' ? renderHnDiagram() : l.id==='motion-management' ? renderMotionDiagram() : l.id==='dose-algorithms' ? renderDoseAlgoDiagram() : l.id==='plan-eval' ? renderPlanEvalDiagram() : l.id==='image-registration' ? renderRegDiagram() : l.id==='ct-sim' ? renderCtSimDiagram() : l.id==='oar-tolerance' ? renderOarDiagram() : l.id==='radiobio' ? renderRadiobioDiagram() : l.id==='ivbt' ? renderIvbtDiagram() : l.id==='prostate-implant' ? renderSeedDiagram() : l.id==='proton' ? renderProtonDiagram() : l.id==='crt-3d' ? renderCrtVolDiagram() : l.id==='tbi' ? renderTbiDiagram() : l.id==='srs' ? renderSrsDiagram() : l.id==='imrt' ? renderImrtDiagram() : l.id==='quality-assurance' ? renderFmeaDiagram() : l.id==='sbrt' ? renderSbrtDiagram() : l.id==='igrt-techniques' ? renderIgrtDiagram() : l.id==='radiation-protection' ? renderShieldingDiagram() : l.id==='brachytherapy' ? renderBrachyDiagram() : l.id==='electron-therapy' ? renderElectronPddDiagram() : l.id==='clinical-generators' ? renderLinacHeadDiagram() : l.id==='nuclear-transform' ? renderDecayDiagram() : l.id==='structure-matter' ? renderAtomDiagram() : l.id==='xray-production' ? renderSpectrumDiagram() : l.id==='interactions' ? renderInteractionDiagram() : l.id==='measurement' ? renderWallDiagram() : l.id==='beam-quality' ? renderFilterDiagram() : l.id==='absorbed-dose' ? renderAbsorbedDoseDiagram() : l.id==='scatter-analysis' ? renderEquivSquareDiagram() : l.id==='mu-calc' ? renderMUDiagram() : l.id==='isodose' ? renderIsodoseDiagram() : l.id==='corrections' ? renderInhomogeneityDiagram() : l.id==='field-shaping' ? renderGapDiagram() : renderInteractiveDiagram();
+  if(sec==='diagram') return l.id==='radiation-detectors' ? renderDetDiagram() : l.id==='patient-data-loc' ? renderLocDiagram() : l.id==='deform-accum' ? renderDfmDiagram() : l.id==='computer-hardware' ? renderHardwareDiagram() : l.id==='image-data' ? renderImageDataDiagram() : l.id==='dicom-systems' ? renderDcmDiagram() : l.id==='imrt-qa' ? renderIqaDiagram() : l.id==='vault-shielding' ? renderVaultDiagram() : l.id==='adaptive-auto' ? renderAdaptDiagram() : l.id==='implant-devices' ? renderImplDiagram() : l.id==='safety-culture' ? renderSafeDiagram() : l.id==='chart-checks' ? renderChkDiagram() : l.id==='brachy-safety' ? renderBrsDiagram() : l.id==='xsec-anatomy' ? renderAnatDiagram() : l.id==='sarcoma-cancer' ? renderSarcDiagram() : l.id==='peds-cancer' ? renderPedsDiagram() : l.id==='skin-cancer' ? renderSkinDiagram() : l.id==='lymphoma-cancer' ? renderLymDiagram() : l.id==='gyn-cancer' ? renderGynDiagram() : l.id==='gi-cancer' ? renderGiDiagram() : l.id==='prostate-cancer' ? renderProstDiagram() : l.id==='breast-cancer' ? renderBreastDiagram() : l.id==='lung-cancer' ? renderLungDiagram() : l.id==='cns-cancer' ? renderCnsDiagram() : l.id==='hn-cancer' ? renderHnDiagram() : l.id==='motion-management' ? renderMotionDiagram() : l.id==='dose-algorithms' ? renderDoseAlgoDiagram() : l.id==='plan-eval' ? renderPlanEvalDiagram() : l.id==='image-registration' ? renderRegDiagram() : l.id==='ct-sim' ? renderCtSimDiagram() : l.id==='oar-tolerance' ? renderOarDiagram() : l.id==='radiobio' ? renderRadiobioDiagram() : l.id==='ivbt' ? renderIvbtDiagram() : l.id==='prostate-implant' ? renderSeedDiagram() : l.id==='proton' ? renderProtonDiagram() : l.id==='crt-3d' ? renderCrtVolDiagram() : l.id==='tbi' ? renderTbiDiagram() : l.id==='srs' ? renderSrsDiagram() : l.id==='imrt' ? renderImrtDiagram() : l.id==='quality-assurance' ? renderFmeaDiagram() : l.id==='sbrt' ? renderSbrtDiagram() : l.id==='igrt-techniques' ? renderIgrtDiagram() : l.id==='radiation-protection' ? renderShieldingDiagram() : l.id==='brachytherapy' ? renderBrachyDiagram() : l.id==='electron-therapy' ? renderElectronPddDiagram() : l.id==='clinical-generators' ? renderLinacHeadDiagram() : l.id==='nuclear-transform' ? renderDecayDiagram() : l.id==='structure-matter' ? renderAtomDiagram() : l.id==='xray-production' ? renderSpectrumDiagram() : l.id==='interactions' ? renderInteractionDiagram() : l.id==='measurement' ? renderWallDiagram() : l.id==='beam-quality' ? renderFilterDiagram() : l.id==='absorbed-dose' ? renderAbsorbedDoseDiagram() : l.id==='scatter-analysis' ? renderEquivSquareDiagram() : l.id==='mu-calc' ? renderMUDiagram() : l.id==='isodose' ? renderIsodoseDiagram() : l.id==='corrections' ? renderInhomogeneityDiagram() : l.id==='field-shaping' ? renderGapDiagram() : renderInteractiveDiagram();
 
   if(sec==='clinical') return `
     <div style="display:flex; gap:12px; align-items:flex-start; background:var(--surface); border:1px solid var(--border); border-radius:14px; padding:20px;">
@@ -13658,7 +13926,11 @@ function lessonSectionContent(l, sec){
       </div>`).join('')}
     </div>`;
 
-  if(sec==='formulas') return `
+  if(sec==='formulas') return !(l.formulas && l.formulas.length)
+    ? `<div style="border:1px solid var(--border); border-radius:12px; padding:20px; color:var(--ink-faint); font-size:13px; line-height:1.6;">
+        No formulas for this lesson \u2014 the material here is conceptual rather than calculated.
+      </div>`
+    : `
     <div style="display:flex; flex-direction:column; gap:14px;">
       ${l.formulas.map(f=>`<div style="border:1px solid var(--border); border-radius:12px; padding:16px 18px;">
         <div style="font-size:12.5px; font-weight:700; color:var(--ink-faint); text-transform:uppercase; letter-spacing:.04em; margin-bottom:8px;">${f.name}</div>
@@ -13857,6 +14129,95 @@ function renderDfmDiagram(){
 
 /* ---- DICOM-RT interactive: object explorer ---- */
 function setDicomObj(v){ state.dicomObj = v; render(); }
+/* ---- Digital image data: matrix, bit depth and file size by modality ---- */
+function setImgMod(v){ state.imgMod = v; render(); }
+/* ---- Computer hardware: what each part does and why a planner cares ---- */
+function setHwPart(v){ state.hwPart = v; render(); }
+function renderHardwareDiagram(){
+  var H = {
+    cpu:{name:'CPU', label:'Processor', color:'var(--accent)', x:150, y:44, w:96, h:52,
+      what:'The central processing unit \u2014 where calculation actually happens. Rated by clock speed (GHz), number of cores, and on-chip cache.',
+      why:'Determines how long a dose calculation or optimisation takes. More cores means more genuine parallel work.'},
+    ram:{name:'RAM', label:'Memory (volatile)', color:'var(--teal)', x:262, y:44, w:96, h:52,
+      what:'Random-access memory \u2014 fast working space holding the operating system, the running program, and the data in use. Volatile: emptied at power-off.',
+      why:'The dose grid being optimised lives here. Too little RAM for the dataset slows everything, whatever the CPU.'},
+    storage:{name:'Storage', label:'HDD / SSD (non-volatile)', color:'var(--amber)', x:150, y:112, w:96, h:52,
+      what:'Permanent, non-volatile storage. HDD = spinning magnetic platters, cheap per TB, mechanical. SSD = flash, no moving parts, much faster.',
+      why:'Holds the archive and the active dataset. RAID combines drives for redundancy or speed \u2014 but RAID is not a backup.'},
+    gpu:{name:'GPU', label:'Graphics card', color:'var(--purple, #8b5cf6)', x:262, y:112, w:96, h:52,
+      what:'Graphics processing unit \u2014 hundreds to thousands of simple cores built for many identical calculations running side by side.',
+      why:'Accelerates Monte Carlo dose, deformable registration, CBCT reconstruction and AI segmentation. Faster, not more accurate.'}
+  };
+  var sel = state.hwPart || 'cpu';
+  var c = H[sel];
+  var boxes = '';
+  Object.keys(H).forEach(function(k){
+    var b = H[k], on = (k===sel);
+    boxes += '<rect x="'+b.x+'" y="'+b.y+'" width="'+b.w+'" height="'+b.h+'" rx="8" fill="'+b.color+'" opacity="'+(on?0.24:0.06)+'" stroke="'+(on?b.color:'var(--border)')+'" stroke-width="'+(on?1.8:0.9)+'"/>'
+      + '<text x="'+(b.x+b.w/2)+'" y="'+(b.y+22)+'" font-size="11" font-family="Inter" font-weight="800" fill="'+(on?b.color:'var(--ink-soft)')+'" text-anchor="middle">'+b.name+'</text>'
+      + '<text x="'+(b.x+b.w/2)+'" y="'+(b.y+38)+'" font-size="7" font-family="Inter" fill="var(--ink-faint)" text-anchor="middle">'+b.label+'</text>';
+  });
+  return '<p style="font-size:14px; color:var(--ink-soft); margin-bottom:16px;">Four parts do the work, all connected by the motherboard. Tap one to see what it does and why it matters in planning.</p>'
+    + '<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;">'
+    + Object.keys(H).map(function(k){return '<button class="btn btn-sm '+(sel===k?'btn-primary':'btn-ghost')+'" onclick="setHwPart(\''+k+'\')">'+H[k].name+'</button>';}).join('')
+    + '</div>'
+    + '<svg viewBox="0 0 440 190" style="width:100%; max-width:440px; background:var(--surface); border:1px solid var(--border); border-radius:12px;">'
+    + '<rect x="132" y="26" width="244" height="154" rx="12" fill="none" stroke="var(--border)" stroke-dasharray="4 3"/>'
+    + '<text x="254" y="176" font-size="7.5" font-family="Inter" fill="var(--ink-faint)" text-anchor="middle">motherboard \u2014 connects power and data between components</text>'
+    + boxes
+    + '<text x="20" y="52" font-size="7.5" font-family="Inter" fill="var(--ink-faint)">volatile:</text>'
+    + '<text x="20" y="66" font-size="7.5" font-family="Inter" fill="var(--teal)">RAM only</text>'
+    + '<text x="20" y="120" font-size="7.5" font-family="Inter" fill="var(--ink-faint)">non-volatile:</text>'
+    + '<text x="20" y="134" font-size="7.5" font-family="Inter" fill="var(--amber)">ROM + storage</text>'
+    + '</svg>'
+    + '<div style="margin-top:12px; font-size:13px; color:var(--ink-soft); line-height:1.65;">'
+    + '<b style="color:'+c.color+';">'+c.name+'</b> \u2014 '+c.what
+    + '<br><span style="color:var(--ink);"><b>Why a planner cares:</b> '+c.why+'</span></div>';
+}
+
+
+function renderImageDataDiagram(){
+  var M = {
+    ct:{name:'CT', matrix:512, bits:16, slices:100, color:'var(--accent)',
+        note:'Reconstructed at 512 \u00d7 512. Needs at least 12 bits to span the Hounsfield range; modern scanners may use 16.'},
+    mr:{name:'MR', matrix:256, bits:12, slices:50, color:'var(--teal)',
+        note:'Acquired at 256 \u00d7 256 \u2014 a quarter of the pixels of a CT slice, so a much smaller series.'},
+    dr:{name:'Digital radiograph', matrix:2048, bits:16, slices:1, color:'var(--amber)',
+        note:'A single projection image at 2048 \u00d7 2048 \u2014 the largest matrix in routine use, and around 8 MB on its own.'}
+  };
+  var sel = state.imgMod || 'ct';
+  var m = M[sel];
+  var px = m.matrix * m.matrix;
+  var perSlice = px * 2;                       // 2 bytes per pixel
+  var totalMB = (perSlice * m.slices) / 1e6;
+  var levels = Math.pow(2, m.bits);
+  // grid preview: cell count scaled so the three matrices look proportionate
+  var n = sel==='mr' ? 8 : (sel==='ct' ? 16 : 32);
+  var cell = 160 / n, grid = '';
+  for(var r=0; r<n; r++){ for(var c=0; c<n; c++){
+    grid += '<rect x="'+(30+c*cell)+'" y="'+(18+r*cell)+'" width="'+(cell-0.4)+'" height="'+(cell-0.4)+'" fill="'+m.color+'" opacity="'+(0.10 + ((r*n+c)%7)*0.045)+'"/>';
+  }}
+  return '<p style="font-size:14px; color:var(--ink-soft); margin-bottom:16px;">Matrix sets the detail, bit depth sets the shades, and the two multiply out into megabytes. Tap a modality.</p>'
+    + '<div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px;">'
+    + Object.keys(M).map(function(k){return '<button class="btn btn-sm '+(sel===k?'btn-primary':'btn-ghost')+'" onclick="setImgMod(\''+k+'\')">'+M[k].name+'</button>';}).join('')
+    + '</div>'
+    + '<svg viewBox="0 0 440 200" style="width:100%; max-width:440px; background:var(--surface); border:1px solid var(--border); border-radius:12px;">'
+    + grid
+    + '<rect x="30" y="18" width="160" height="160" fill="none" stroke="'+m.color+'" stroke-width="1.5"/>'
+    + '<text x="110" y="192" font-size="8.5" fill="var(--ink-faint)" font-family="Inter" text-anchor="middle">'+m.matrix+' \u00d7 '+m.matrix+' pixel grid (schematic)</text>'
+    + '<text x="212" y="40" font-size="10.5" font-family="Inter" font-weight="800" fill="'+m.color+'">'+m.name+'</text>'
+    + '<text x="212" y="62" font-size="8.5" font-family="Inter" fill="var(--ink-soft)">matrix: '+m.matrix+' \u00d7 '+m.matrix+' = '+px.toLocaleString()+' px</text>'
+    + '<text x="212" y="80" font-size="8.5" font-family="Inter" fill="var(--ink-soft)">bit depth: '+m.bits+' bits \u2192 '+levels.toLocaleString()+' grey levels</text>'
+    + '<text x="212" y="98" font-size="8.5" font-family="Inter" fill="var(--ink-soft)">storage: 2 bytes per pixel</text>'
+    + '<text x="212" y="116" font-size="8.5" font-family="Inter" fill="var(--ink-soft)">per slice: \u2248 '+Math.round(perSlice/1000).toLocaleString()+' kB</text>'
+    + '<line x1="212" y1="128" x2="424" y2="128" stroke="var(--border)" stroke-width="1"/>'
+    + '<text x="212" y="146" font-size="8.5" font-family="Inter" fill="var(--ink-soft)">'+m.slices+' '+(m.slices===1?'image':'slices')+'</text>'
+    + '<text x="212" y="166" font-size="12" font-family="Inter" font-weight="800" fill="'+m.color+'">\u2248 '+(totalMB<10?totalMB.toFixed(1):Math.round(totalMB))+' MB total</text>'
+    + '</svg>'
+    + '<div style="margin-top:12px; font-size:13px; color:var(--ink-soft); line-height:1.65;">'+m.note+'</div>';
+}
+
+
 function renderDcmDiagram(){
   var O = {
     image:{name:'CT / RT Image', color:'var(--ink)', body:'The CT image set is the anatomy and dose-calculation dataset; RT Image carries planar images such as DRRs and portal images. Defines the frame of reference all else is tied to.'},
