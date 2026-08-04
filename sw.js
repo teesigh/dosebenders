@@ -4,12 +4,13 @@
 
    Bump CACHE_VERSION whenever you deploy and want clients to refresh. */
 
-const CACHE_VERSION = 'db-v9';
+const CACHE_VERSION = 'db-v11';
 const SHELL = [
   '/',
   '/index.html',
   '/config.js',
   '/favicon.svg',
+  '/favicon.ico',
   '/apple-touch-icon.png',
   '/icon-192.png',
   '/icon-512.png',
